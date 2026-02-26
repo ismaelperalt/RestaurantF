@@ -1,4 +1,10 @@
-export default function StatusBadge({ status }) {
+type Status = "pending" | "preparing" | "served";
+
+interface StatusBadgeProps {
+  status: Status;
+}
+
+export default function StatusBadge({ status }: StatusBadgeProps) {
   const styles = {
     pending: { label: "Pendiente", color: "#facc15" },
     preparing: { label: "En preparación", color: "#60a5fa" },

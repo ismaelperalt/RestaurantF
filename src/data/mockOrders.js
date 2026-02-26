@@ -32,5 +32,15 @@ export const mockOrders = [
     items: [
       { name: "Pollo", price: 10 }
     ]
+  },
+    {
+    id: 5,
+    table: 5,
+    status: "served",
+    items: [
+      { name: "Ensalada", price: 6 },
+      { name: "Papas fritas", price: 4 }
+    ]
   }
+  
 ];

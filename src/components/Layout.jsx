@@ -5,7 +5,7 @@ export default function Layout({ children }) {
     <div>
       <header className="header">
         <Link to="/">
-          <h1>Restaurant Dashboard</h1>
+          <h1>RestaurantF</h1>
         </Link>
       </header>
 

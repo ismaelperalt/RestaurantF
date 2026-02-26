@@ -1,0 +1,61 @@
+
+/* centra todo en pantalla */
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+/* tarjeta principal */
+.order-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* header mesa + estado */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* titulo seccion */
+.section-title {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* lista productos */
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* item individual */
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+/* precio */
+.price {
+  font-weight: bold;
+}
+
+/* total */
+.order-total {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid #eee;
+  text-align: right;
+  font-size: 18px;
+}
