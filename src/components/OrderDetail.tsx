@@ -1,9 +1,30 @@
 import StatusBadge from "./StatusBadge";
+import "../styles/carddetalle.css";
 
-import '../styles/carddetalle.css';
+/* tipos del sistema */
+type Status = "pending" | "preparing" | "served";
 
-export default function OrderDetail({ order }) {
-  const total = order.items.reduce((sum, item) => sum + item.price, 0);
+interface OrderItem {
+  id?: number;
+  name: string;
+  price: number;
+}
+
+interface Order {
+  table: number;
+  status: Status;
+  items: OrderItem[];
+}
+
+interface OrderDetailProps {
+  order: Order;
+}
+
+export default function OrderDetail({ order }: OrderDetailProps) {
+  const total = order.items.reduce(
+    (sum: number, item: OrderItem) => sum + item.price,
+    0
+  );
 
   return (
     <div className="order-container">
@@ -17,8 +38,11 @@ export default function OrderDetail({ order }) {
         <h3 className="section-title">Productos</h3>
 
         <div className="items-list">
-          {order.items.map((item, i) => (
-            <div key={i} className="item">
+          {order.items.map((item) => (
+            <div
+              key={item.id ?? item.name}
+              className="item"
+            >
               <span>{item.name}</span>
               <span className="price">${item.price}</span>
             </div>
