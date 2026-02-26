@@ -4,7 +4,7 @@
 
 Este proyecto es una interfaz frontend desarrollada con **React** que simula un módulo de gestión de pedidos para un restaurante.
 
-La aplicación permite visualizar mesas con pedidos activos organizados por estado, consultar el detalle de cada pedido y navegar entre vistas con una experiencia responsive.
+La aplicación permite visualizar pedidos por mesa, consultar su detalle y mover pedidos entre columnas mediante drag & drop, actualizando automáticamente su estado y navegar entre vistas con una experiencia responsive.
 
 Este proyecto fue desarrollado como prueba técnica enfocada en:
 
@@ -14,6 +14,16 @@ Este proyecto fue desarrollado como prueba técnica enfocada en:
 * Buenas prácticas en frontend
 * Diseño responsive
 * Organización del código
+
+Drag & Drop interactivo (gestión en tiempo real)
+
+El sistema permite:
+
+* Arrastrar pedidos entre columnas
+* Cambiar el estado automáticamente al moverlos
+* Actualización inmediata de la UI
+* Experiencia visual fluida estilo aplicaciones profesionales
+* Organización dinámica del flujo de pedidos
 
 ---
 
@@ -40,23 +50,28 @@ Contenerización con Docker
 
 ```
 src/
- ├─ components/
+ ├─ components/        # Componentes reutilizables
  │   ├─ TableCard.jsx
  │   ├─ OrderDetail.jsx
  │   ├─ StatusBadge.jsx
+ │   ├─ Footer.tsx
  │   └─ Layout.jsx
  │
- ├─ pages/
+ ├─ pages/             # Vistas principales
  │   ├─ Dashboard.jsx
  │   └─ OrderPage.jsx
  │
- ├─ data/
+ ├─ data/              # Mock data
  │   └─ mockOrders.js
  │
- ├─ styles/
- │   └─ global.css
+ ├─ styles/            # Estilos
+ │   ├─ global.css
+ │   └─ statusBadge.css
  │
- ├─ App.jsx
+ ├─ test/              # Tests
+ ├─ types/             # Tipos TypeScript
+ │
+ ├─ App.tsx
  └─ main.jsx
 ```
 
@@ -68,6 +83,9 @@ src/
 * Vite
 * React Router DOM
 * CSS
+* @hello-pangea/dnd
+* Vitest
+* Testing Library
 * Docker
 * Docker Compose
 
