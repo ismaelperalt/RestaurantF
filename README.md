@@ -79,7 +79,8 @@ src/
 
 ```
 git clone https://github.com/ismaelperalt/RestaurantF.git
-cd restaurant-app
+ls
+cd RestaurantF
 ```
 
 ### 2. Instalar dependencias
@@ -108,6 +109,9 @@ http://localhost:5173
 
 ```
 docker compose up --build
+
+docker-compose up --build
+
 ```
 
 Abrir:
