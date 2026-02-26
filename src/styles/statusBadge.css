@@ -1,0 +1,18 @@
+.badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.badge-pending {
+  background: #facc15;
+}
+
+.badge-preparing {
+  background: #60a5fa;
+}
+
+.badge-served {
+  background: #4ade80;
+}

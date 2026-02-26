@@ -1,59 +1,58 @@
 import StatusBadge from "./StatusBadge";
+import type{ Order } from "../types/order"; // centralizar tipos
 import "../styles/carddetalle.css";
-
-/* tipos del sistema */
-type Status = "pending" | "preparing" | "served";
-
-interface OrderItem {
-  id?: number;
-  name: string;
-  price: number;
-}
-
-interface Order {
-  table: number;
-  status: Status;
-  items: OrderItem[];
-}
 
 interface OrderDetailProps {
   order: Order;
 }
 
 export default function OrderDetail({ order }: OrderDetailProps) {
-  const total = order.items.reduce(
-    (sum: number, item: OrderItem) => sum + item.price,
-    0
-  );
+  // calcular total
+  const total = order.items.reduce((sum, item) => sum + item.price, 0);
+
+  // formatear moneda
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("es-EC", {
+      style: "currency",
+      currency: "USD"
+    }).format(value);
 
   return (
-    <div className="order-container">
-      <div className="order-card">
+    <section className="order-container">
+      <article className="order-card">
 
-        <div className="order-header">
+        {/* HEADER */}
+        <header className="order-header">
           <h2>Mesa {order.table}</h2>
           <StatusBadge status={order.status} />
+        </header>
+
+        {/* PRODUCTOS */}
+        <div className="order-body">
+          <h3 className="section-title">Productos</h3>
+
+          {order.items.length === 0 ? (
+            <p className="empty">No hay productos</p>
+          ) : (
+            <ul className="items-list">
+              {order.items.map((item) => (
+                <li key={item.id ?? item.name} className="item">
+                  <span>{item.name}</span>
+                  <span className="price">
+                    {formatCurrency(item.price)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        <h3 className="section-title">Productos</h3>
+        {/* TOTAL */}
+        <footer className="order-total">
+          <h3>Total: {formatCurrency(total)}</h3>
+        </footer>
 
-        <div className="items-list">
-          {order.items.map((item) => (
-            <div
-              key={item.id ?? item.name}
-              className="item"
-            >
-              <span>{item.name}</span>
-              <span className="price">${item.price}</span>
-            </div>
-          ))}
-        </div>
-
-        <div className="order-total">
-          <h3>Total: ${total}</h3>
-        </div>
-
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }

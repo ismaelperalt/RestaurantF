@@ -1,29 +1,20 @@
-type Status = "pending" | "preparing" | "served";
+import type { Status } from "../types/order";
+import "../styles/statusBadge.css";
 
-interface StatusBadgeProps {
+interface Props {
   status: Status;
 }
 
-export default function StatusBadge({ status }: StatusBadgeProps) {
-  const styles = {
-    pending: { label: "Pendiente", color: "#facc15" },
-    preparing: { label: "En preparación", color: "#60a5fa" },
-    served: { label: "Servido", color: "#4ade80" }
+export default function StatusBadge({ status }: Props) {
+  const labels = {
+    pending: "Pendiente",
+    preparing: "En preparación",
+    served: "Servido"
   };
 
-  const current = styles[status];
-
   return (
-    <span
-      style={{
-        background: current.color,
-        padding: "6px 12px",
-        borderRadius: "8px",
-        fontSize: "14px",
-        fontWeight: "bold"
-      }}
-    >
-      {current.label}
+    <span className={`badge badge-${status}`}>
+      {labels[status]}
     </span>
   );
 }
