@@ -1,73 +1,123 @@
-# React + TypeScript + Vite
+# Restaurant Dashboard — Frontend React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Este proyecto es una interfaz frontend desarrollada con **React** que simula un módulo de gestión de pedidos para un restaurante.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+La aplicación permite visualizar mesas con pedidos activos organizados por estado, consultar el detalle de cada pedido y navegar entre vistas con una experiencia responsive.
 
-## React Compiler
+Este proyecto fue desarrollado como prueba técnica enfocada en:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Experiencia de usuario (UX)
+* Diseño visual
+* Arquitectura de componentes
+* Buenas prácticas en frontend
+* Diseño responsive
+* Organización del código
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Características principales
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Dashboard de pedidos del restaurante
+Organización visual por estados:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+* 🟡 Pendiente
+* 🔵 En preparación
+* 🟢 Servido
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Vista tipo tablero (3 columnas)
+Detalle de pedido por mesa
+Componentes reutilizables
+Routing con React Router
+Diseño responsive (desktop, tablet, mobile)
+Mock data para simulación de pedidos
+Contenerización con Docker
+
+---
+
+##  Arquitectura del proyecto
+
+```
+src/
+ ├─ components/
+ │   ├─ TableCard.jsx
+ │   ├─ OrderDetail.jsx
+ │   ├─ StatusBadge.jsx
+ │   └─ Layout.jsx
+ │
+ ├─ pages/
+ │   ├─ Dashboard.jsx
+ │   └─ OrderPage.jsx
+ │
+ ├─ data/
+ │   └─ mockOrders.js
+ │
+ ├─ styles/
+ │   └─ global.css
+ │
+ ├─ App.jsx
+ └─ main.jsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tecnologías utilizadas
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* React
+* Vite
+* React Router DOM
+* CSS
+* Docker
+* Docker Compose
+
+---
+
+## ⚙️ Instalación y ejecución local
+
+### 1. Clonar repositorio
+
 ```
+git clone https://github.com/ismaelperalt/RestaurantF.git
+cd restaurant-app
+```
+
+### 2. Instalar dependencias
+
+```
+npm install
+```
+
+### 3. Ejecutar aplicación
+
+```
+npm run dev
+```
+
+### 4. Abrir en navegador
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🐳 Ejecutar con Docker (recomendado)
+
+### Construir y ejecutar contenedor
+
+```
+docker compose up --build
+```
+
+Abrir:
+
+```
+http://localhost:5173
+```
+
+---
+## 👨‍💻 Autor
+
+Desarrollado por Ismael Peralta.
+
