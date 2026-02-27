@@ -1,0 +1,19 @@
+/* header en dos lados */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+/* logo fijo */
+.logo {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* mensaje animado */
+.header-message {
+  font-size: 20px;
+  opacity: 0.8;
+}
