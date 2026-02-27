@@ -41,8 +41,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h2>Gestión de pedidos</h2>
-
+      <h2 className="titulo-pedido">Estado de tu Pedido</h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="board">
           {columns.map(column => (
