@@ -18,9 +18,18 @@
 .order-card {
   transition: all 0.2s ease;
 }
+.card {
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
 .order-card:hover {
   transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* header mesa + estado */

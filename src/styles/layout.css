@@ -5,6 +5,14 @@
   align-items: center;
   padding: 15px 30px;
 }
+.header {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 /* logo fijo */
 .logo {
@@ -16,4 +24,12 @@
 .header-message {
   font-size: 20px;
   opacity: 0.8;
+}
+.logo {
+  color: white;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff9800;
 }
