@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="header-message">
           <TypeAnimation
             sequence={[
-              "Gracias por preferirnos ❤️",
+              "🍔🍔 2 hamburguesas por 1, Hoy!! ⭐",
               2500,
               "", 
               500,
