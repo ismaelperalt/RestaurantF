@@ -1,23 +1,30 @@
-/* header en dos lados */
+/* header base */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-}
-.header {
+  flex-wrap: wrap; /* permite bajar elementos si no caben */
+  gap: 10px;
   animation: fadeIn 1s ease-in-out;
 }
 
+/* animación */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* logo fijo */
+/* logo */
 .logo {
   margin: 0;
   font-weight: bold;
+  color: white;
+  transition: 0.3s;
+}
+
+.logo:hover {
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff9800;
 }
 
 /* mensaje animado */
@@ -25,11 +32,21 @@
   font-size: 20px;
   opacity: 0.8;
 }
-.logo {
-  color: white;
-  transition: 0.3s;
-}
 
-.logo:hover {
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff9800;
+/* ---------- RESPONSIVE (celular/tablet) ---------- */
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .header-message {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
 }
