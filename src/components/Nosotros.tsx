@@ -1,5 +1,6 @@
 
 import "../styles/Nosotros.css"; // CSS separado
+import Reviews from "./Reviews";
 
 export default function Nosotros() {
   return (
@@ -44,11 +45,17 @@ export default function Nosotros() {
 
       {/* Imagen del equipo */}
       <div className="nosotros-image">
-        <img
-          src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80"
-          alt="Nuestro equipo en acción"
-        />
+       
+         <Reviews/>
       </div>
+       
+    
+    
+
+      
     </section>
+
+   
+   
   );
 }

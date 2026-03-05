@@ -40,7 +40,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div>
+    <div className="dasboard">
       <h2 className="titulo-pedido">Estado de tu Pedido</h2>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="board">
