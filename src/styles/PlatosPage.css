@@ -1,0 +1,95 @@
+.platos-page {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header de la sección */
+.platos-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.platos-header h1 {
+  font-size: 3rem;
+  color: #ff6600;
+  margin-bottom: 10px;
+}
+
+.platos-header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+/* Contenedor de platos */
+.platos-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Cada plato */
+.plato-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plato-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.plato-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.plato-card h3 {
+  margin: 10px 0 5px 0;
+}
+
+.plato-card p {
+  margin: 5px 0;
+}
+
+.plato-card button {
+  background-color:#d3a902;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.plato-card button:hover {
+  background-color: #f3c305;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .platos-header h1 {
+    font-size: 2rem;
+  }
+
+  .platos-header p {
+    font-size: 1rem;
+  }
+
+  .platos-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

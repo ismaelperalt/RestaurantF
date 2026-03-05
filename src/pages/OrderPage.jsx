@@ -16,7 +16,7 @@ export default function OrderPage() {
 
       <button
         className="back-button"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/dashboard")}
       >
         ← Volver
       </button>
