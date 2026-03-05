@@ -16,3 +16,57 @@
 .badge-served {
   background: #4ade80;
 }
+.card{
+
+  background:#fdfdfd;
+  padding:18px;
+  border-radius:16px;
+  cursor:pointer;
+
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+
+  transition:all .2s ease;
+
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+}
+
+/* hover bonito */
+
+.card:hover{
+
+  transform:translateY(-3px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+
+}
+
+/* header de la card */
+
+.card-header{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+/* titulo mesa */
+
+.card h3{
+
+  margin:0;
+  font-size:18px;
+  color:#1e293b;
+
+}
+
+/* texto productos */
+
+.card-products{
+
+  font-size:14px;
+  color:#64748b;
+
+}

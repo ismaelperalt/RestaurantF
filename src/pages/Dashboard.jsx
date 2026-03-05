@@ -5,20 +5,18 @@ import TableCard from "../components/TableCard";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
 
-  // estado real de pedidos
+  const navigate = useNavigate();
   const [orders, setOrders] = useState(mockOrders);
 
-  // agrupar pedidos
   const groupedOrders = {
     pending: orders.filter(o => o.status === "pending"),
     preparing: orders.filter(o => o.status === "preparing"),
     served: orders.filter(o => o.status === "served")
   };
 
-  // cuando termina drag
   const onDragEnd = (result) => {
+
     if (!result.destination) return;
 
     const orderId = Number(result.draggableId);
@@ -40,48 +38,77 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="dasboard">
+
+    <div className="dashboard">
+
       <h2 className="titulo-pedido">Estado de tu Pedido</h2>
+
       <DragDropContext onDragEnd={onDragEnd}>
+
         <div className="board">
+
           {columns.map(column => (
+
             <Droppable key={column.id} droppableId={column.id}>
-              {(provided) => (
+
+              {(provided, snapshot) => (
+
                 <div
-                  className="column"
+                  className={`column column-${column.id} ${snapshot.isDraggingOver ? "drag-over" : ""}`}
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  <h3>{column.title}</h3>
+
+                  <h3 className="titulo-h3">
+                    {column.title}
+                    <span className="count">
+                      {groupedOrders[column.id].length}
+                    </span>
+                  </h3>
 
                   {groupedOrders[column.id].map((order, index) => (
+
                     <Draggable
                       key={order.id}
                       draggableId={String(order.id)}
                       index={index}
                     >
+
                       {(provided) => (
+
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                         >
+
                           <TableCard
                             order={order}
                             onClick={() => navigate(`/order/${order.id}`)}
                           />
+
                         </div>
+
                       )}
+
                     </Draggable>
+
                   ))}
 
                   {provided.placeholder}
+
                 </div>
+
               )}
+
             </Droppable>
+
           ))}
+
         </div>
+
       </DragDropContext>
+
     </div>
   );
 }
