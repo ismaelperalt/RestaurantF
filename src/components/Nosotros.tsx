@@ -45,6 +45,7 @@ export default function Nosotros() {
 
       {/* Imagen del equipo */}
       <div className="nosotros-image">
+        <h2>Experiencias...</h2>
        
          <Reviews/>
       </div>
