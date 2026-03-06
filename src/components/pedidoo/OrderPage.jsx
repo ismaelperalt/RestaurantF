@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { mockOrders } from "../data/mockOrders";
-import OrderDetail from "../components/OrderDetail";
-import '../styles/OrderPage.css';
+import { mockOrders } from "../../data/mockOrders";
+import OrderDetail from "./OrderDetail";
+import '../../styles/OrderPage.css';
 
 export default function OrderPage() {
   const { id } = useParams();

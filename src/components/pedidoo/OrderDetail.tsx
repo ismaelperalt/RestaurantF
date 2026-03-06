@@ -1,6 +1,6 @@
 import StatusBadge from "./StatusBadge";
-import type{ Order } from "../types/order"; // centralizar tipos
-import "../styles/carddetalle.css";
+import type{ Order } from "../../types/order"; // centralizar tipos
+import "../../styles/carddetalle.css";
 
 interface OrderDetailProps {
   order: Order;

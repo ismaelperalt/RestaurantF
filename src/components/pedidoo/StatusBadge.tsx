@@ -1,5 +1,5 @@
-import type { Status } from "../types/order";
-import "../styles/statusBadge.css";
+import type { Status } from "../../types/order";
+import "../../styles/statusBadge.css";
 
 interface Props {
   status: Status;

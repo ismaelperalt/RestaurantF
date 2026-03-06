@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../components/menu/Dashboard";
 import { describe, it, expect, vi } from "vitest";
 import type { ReactNode } from "react";
 

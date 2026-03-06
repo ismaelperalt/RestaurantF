@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import OrderPage from "./pages/OrderPage";
+import Dashboard from "./components/pedidoo/Dashboard";
+import OrderPage from "./components/pedidoo/OrderPage";
 import Layout from "./components/Layout";
 
 
 import "./styles/global.css";
-import Inicio from "./pages/Inicio";
-import Nosotros from "./components/Nosotros";
-import PlatosPage from "./pages/PlatosPage";
+import Inicio from "./components/inicio/Inicio";
+import Nosotros from "./components/nosotros/Nosotros";
+import PlatosPage from "./components/menu/PlatosPage";
 import Principal from "./components/pedido/Principal";
 
 function App() {

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type{ MenuItem } from "../types/data"
-import {menu} from "../types/data"
+import type{ MenuItem } from "../../types/data"
+import {menu} from "../../types/data"
 
 const categoryConfig = {
   entrada:   { label: "Entradas",    emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },

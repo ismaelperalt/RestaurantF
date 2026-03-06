@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { mockOrders } from "../data/mockOrders";
-import TableCard from "../components/TableCard";
+import { mockOrders } from "../../data/mockOrders";
+import TableCard from "../../components/pedidoo/TableCard";
 import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
