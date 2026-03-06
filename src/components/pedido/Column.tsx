@@ -1,16 +1,16 @@
-import type { Order} from "../../types/types";
+import type{ Order } from "../../types/types";
 import { columnConfig } from "../../types/data";
-
 import OrderCard from "./OrderCard";
+import type{ OrderItem } from "../../types/types";
 
 interface Props {
   status: "pending" | "preparing" | "ready";
   orders: Order[];
   onAction: (id: number) => void;
-
+  onItemStatusChange: (orderId: number, itemIndex: number, newStatus: OrderItem["status"]) => void; // ← nueva
 }
 
-export default function Column({ status, orders, onAction}: Props) {
+export default function Column({ status, orders, onAction, onItemStatusChange }: Props) {
   const cfg = columnConfig[status];
   return (
     <div style={{ flex: 1, minWidth: 280 }}>
@@ -25,7 +25,15 @@ export default function Column({ status, orders, onAction}: Props) {
           padding: "1px 10px", fontSize: 13, fontWeight: 700,
         }}>{orders.length}</span>
       </div>
-      {orders.map((o) => <OrderCard key={o.id} order={o} onAction={onAction}  />)}
+
+      {orders.map((o) => (
+        <OrderCard
+          key={o.id}
+          order={o}
+          onAction={onAction}
+          onItemStatusChange={onItemStatusChange} // ← pasa hacia abajo
+        />
+      ))}
     </div>
   );
 }

@@ -37,7 +37,22 @@ export default function Principal() {
     });
   };
 
-
+// Agrega esta función junto a handleAction
+const handleItemStatusChange = (
+  orderId: number,
+  itemIndex: number,
+  newStatus: OrderItem["status"]
+) => {
+  setOrders((prev) =>
+    prev.map((o) => {
+      if (o.id !== orderId) return o;
+      const updatedItems = o.items.map((item, i) =>
+        i === itemIndex ? { ...item, status: newStatus } : item
+      );
+      return { ...o, items: updatedItems };
+    })
+  );
+};
   const handleAddOrder = (newOrder: { table: string; pax: string; waiter: string; notes: string,items: OrderItem[] }) => {
     const order: Order = {
       id: Date.now(),
@@ -67,6 +82,7 @@ export default function Principal() {
               status={status}
               orders={orders.filter((o) => o.status === status)}
               onAction={handleAction}
+              onItemStatusChange={handleItemStatusChange}
               
             />
           ))}
