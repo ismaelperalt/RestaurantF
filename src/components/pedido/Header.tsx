@@ -10,8 +10,8 @@ export default function Header({ activeCount, onNewOrder }: Props) {
       padding: "14px 32px", display: "flex", justifyContent: "space-between", alignItems: "center",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <span style={{ fontSize: 22 }}>🍳</span>
-        <span style={{ fontWeight: 800, fontSize: 20, color: "#111" }}>Vista de Cocina</span>
+        <span style={{ fontSize: 22 }}>📊</span>
+        <span style={{ fontWeight: 800, fontSize: 20, color: "#f59e0b" }}>Gestion de pedido</span>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
         <span style={{ fontSize: 13, color: "#6b7280" }}>{activeCount} pedido(s) activo(s)</span>

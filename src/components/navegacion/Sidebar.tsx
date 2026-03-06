@@ -8,10 +8,10 @@ interface Props {
 
 const navItems = [
   { to: "/", label: "Inicio", icon: "🏠", end: true },
-  { to: "/platos", label: "Platos", icon: "🍽️", end: false },
+  { to: "/platos", label: "Menu", icon: "🍽️", end: false },
   { to: "/nosotros", label: "Nosotros", icon: "👥", end: false },
-  { to: "/pedido", label: "Pedido", icon: "📋", end: false },
-  { to: "/dashboard", label: "Gestionar Pedidos", icon: "⚙️", end: false },
+  { to: "/pedido", label: " Seguimiento Pedido", icon: "⚙️", end: false },
+  
 ];
 
 export default function Sidebar({ collapsed, onToggle }: Props) {
@@ -71,7 +71,7 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
           {!collapsed && (
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{
-                background: "#f59e0b", borderRadius: 10,
+                background: "#d8a44b", borderRadius: 10,
                 width: 34, height: 34, display: "flex",
                 alignItems: "center", justifyContent: "center",
                 fontSize: 18, flexShrink: 0,

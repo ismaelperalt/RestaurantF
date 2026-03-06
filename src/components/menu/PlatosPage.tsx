@@ -35,7 +35,7 @@ export default function PlatosPage() {
       {/* ── Header ── */}
       <div style={{
         background: "#fff",
-        padding: "40px 32px 32px", color: "#6c4747",
+        padding: "40px 32px 32px", color: "#f59e0b",
       }}>
         <h1 style={{ margin: "0 0 6px", fontSize: 28, fontWeight: 900 }}>🍴 Nuestra Carta</h1>
         <p style={{ margin: "0 0 24px", opacity: 0.9, fontSize: 15 }}>
@@ -47,7 +47,7 @@ export default function PlatosPage() {
           <span style={{
             position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)",
             fontSize: 16,
-          }}>🔍</span>
+          }}></span>
           <input
             type="text"
             placeholder="Buscar plato..."
@@ -56,7 +56,8 @@ export default function PlatosPage() {
             style={{
               width: "100%", padding: "12px 12px 12px 42px",
               borderRadius: 12, border: "none", fontSize: 14,
-              background: "rgba(173, 129, 72, 0.25)", color: "#100f0f",
+              background:"rgba(224, 148, 17, 0.1)",
+              color: "#c88e11",
               outline: "none", boxSizing: "border-box",
               backdropFilter: "blur(4px)",
             }}

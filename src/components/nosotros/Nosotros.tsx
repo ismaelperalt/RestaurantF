@@ -24,7 +24,7 @@ export default function Nosotros() {
         background: "#fff",
       }}>
         <span style={{
-          fontSize: 18, fontWeight: 800, letterSpacing: 2,
+          fontSize: 40, fontWeight: 800, letterSpacing: 2,
           color: "#f59e0b", textTransform: "uppercase",
         }}>
           🍴 Nuestra Historia

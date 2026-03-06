@@ -33,10 +33,10 @@ export default function Inicio() {
 
       {/* Badge superior */}
       <div style={{
-        background: "rgba(245,158,11,0.15)",
+        background: "rgba(192, 149, 76, 0.15)",
         border: "1px solid rgba(245,158,11,0.4)",
         borderRadius: 30, padding: "6px 18px",
-        color: "#f59e0b", fontSize: 12, fontWeight: 800,
+        color: "#ccbb9e", fontSize: 14, fontWeight: 900,
         letterSpacing: 2, textTransform: "uppercase",
         marginBottom: 24, backdropFilter: "blur(8px)",
       }}>
@@ -44,23 +44,59 @@ export default function Inicio() {
       </div>
 
       {/* Título principal */}
-      <h1 style={{
-        fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
-        fontWeight: 900, color: "#fff",
-        margin: "0 0 8px",
-        textAlign: "center",
-        lineHeight: 1.1,
-        textShadow: "0 4px 30px rgba(0,0,0,0.5)",
-        padding: "0 20px",
-      }}>
-        Cocina
-        <span style={{
-          color: "#f59e0b",
-          display: "block",
+      <div style={{ position: "relative", display: "inline-block", padding: "16px 32px" }}
+        className="titulo-animado"
+      >
+        <h1 style={{
+          fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
+          fontWeight: 900, color: "#fff",
+          margin: 0,
+          textAlign: "center",
+          lineHeight: 1.1,
+          textShadow: "0 4px 30px rgba(0,0,0,0.5)",
+          position: "relative", zIndex: 1,
         }}>
-          Tradicional
-        </span>
-      </h1>
+          Cocina
+          <span style={{
+            color: "#f59e0b",
+            display: "block",
+          }}>
+            Tradicional
+          </span>
+        </h1>
+      </div>
+
+      {/* CSS de la animación */}
+      <style>{`
+  .titulo-animado::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 3px;
+    background: linear-gradient(
+      90deg,
+      #f59e0b,
+      #fff,
+      #f59e0b,
+      #d97706,
+      #f59e0b
+    );
+    background-size: 300% 300%;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: borderMove 3s linear infinite;
+  }
+
+  @keyframes borderMove {
+    0%   { background-position: 0% 50%;   }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%;   }
+  }
+`}</style>
 
       {/* Línea decorativa */}
       <div style={{
@@ -82,57 +118,132 @@ export default function Inicio() {
 
       {/* Botones */}
       <div style={{
-        display: "flex", gap: 14, flexWrap: "wrap",
+        display: "flex", gap: 16, flexWrap: "wrap",
         justifyContent: "center", padding: "0 20px",
       }}>
+
         <Link to="/platos" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              background: "linear-gradient(135deg, #f59e0b, #d97706)",
-              border: "none", borderRadius: 14,
-              padding: "14px 32px", fontSize: 15,
-              color: "#fff", cursor: "pointer",
-              fontWeight: 800, letterSpacing: 0.5,
-              boxShadow: "0 4px 20px rgba(245,158,11,0.5)",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 28px rgba(245,158,11,0.6)";
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 20px rgba(245,158,11,0.5)";
-            }}
-          >
-            🍽️ Ver Carta
+          <button className="btn-primary">
+            <span className="btn-icon">🍽️</span>
+            <span>Ver Carta</span>
+            <span className="btn-arrow">→</span>
           </button>
         </Link>
 
         <Link to="/pedido" style={{ textDecoration: "none" }}>
-          <button
-            style={{
-              background: "rgba(255,255,255,0.1)",
-              border: "1.5px solid rgba(255,255,255,0.4)",
-              borderRadius: 14, padding: "14px 32px",
-              fontSize: 15, color: "#fff", cursor: "pointer",
-              fontWeight: 800, letterSpacing: 0.5,
-              backdropFilter: "blur(8px)",
-              transition: "all 0.2s",
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.2)";
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.1)";
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-            }}
-          >
-            📋 Hacer Pedido
+          <button className="btn-secondary">
+            <span className="btn-icon">📋</span>
+            <span>Hacer Pedido</span>
           </button>
         </Link>
+
       </div>
+
+      <style>{`
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: none;
+    border-radius: 14px;
+    padding: 15px 28px;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(245,158,11,0.4),
+                0 1px 0 rgba(255,255,255,0.2) inset;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+      90deg, transparent,
+      rgba(255,255,255,0.25),
+      transparent
+    );
+    transition: left 0.4s ease;
+  }
+  .btn-primary:hover::before { left: 100%; }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(245,158,11,0.55),
+                0 1px 0 rgba(255,255,255,0.2) inset;
+  }
+  .btn-primary:active { transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 14px;
+    padding: 15px 28px;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(
+      90deg, transparent,
+      rgba(255,255,255,0.12),
+      transparent
+    );
+    transition: left 0.4s ease;
+  }
+  .btn-secondary:hover::before { left: 100%; }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .btn-secondary:active { transform: translateY(-1px); }
+
+  .btn-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .btn-primary:hover .btn-arrow {
+    transform: translateX(5px);
+  }
+
+  .btn-icon {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .btn-primary:hover .btn-icon,
+  .btn-secondary:hover .btn-icon {
+    transform: scale(1.2) rotate(-5deg);
+  }
+
+  @media (max-width: 480px) {
+    .btn-primary, .btn-secondary {
+      padding: 13px 22px;
+      font-size: 14px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+`}</style>
 
       {/* Stats decorativos */}
       <div style={{
@@ -142,7 +253,7 @@ export default function Inicio() {
       }}>
         {[
           { value: "15+", label: "Años de experiencia" },
-          { value: "50+", label: "Platos únicos"       },
+          { value: "50+", label: "Platos únicos" },
           { value: "98%", label: "Clientes satisfechos" },
         ].map((stat) => (
           <div key={stat.label} style={{ textAlign: "center" }}>
