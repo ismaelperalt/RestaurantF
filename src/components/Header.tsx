@@ -32,6 +32,9 @@ export default function Header() {
         <NavLink to="/nosotros" className={({ isActive }) => isActive ? "active" : ""} onClick={handleLinkClick}>
           Nosotros
         </NavLink>
+        <NavLink to="/pedido" className={({ isActive }) => isActive ? "active" : ""} onClick={handleLinkClick}>
+          Pedido
+        </NavLink>
         <NavLink to="/dashboard" className={({ isActive }) => isActive ? "active" : ""} onClick={handleLinkClick}>
           Gestionar Pedido
         </NavLink>

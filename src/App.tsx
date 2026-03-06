@@ -8,6 +8,7 @@ import "./styles/global.css";
 import Inicio from "./pages/Inicio";
 import Nosotros from "./components/Nosotros";
 import PlatosPage from "./pages/PlatosPage";
+import Principal from "./components/pedido/Principal";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="nosotros" element={<Nosotros/>} />
           <Route path="platos" element={<PlatosPage/>} />
+          <Route path="pedido" element={<Principal/>} />
           <Route path="/order/:id" element={<OrderPage />} />
       
         </Routes>
