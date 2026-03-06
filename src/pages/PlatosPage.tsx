@@ -34,8 +34,8 @@ export default function PlatosPage() {
 
       {/* ── Header ── */}
       <div style={{
-        background: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
-        padding: "40px 32px 32px", color: "#fff",
+        background: "#fff",
+        padding: "40px 32px 32px", color: "#6c4747",
       }}>
         <h1 style={{ margin: "0 0 6px", fontSize: 28, fontWeight: 900 }}>🍴 Nuestra Carta</h1>
         <p style={{ margin: "0 0 24px", opacity: 0.9, fontSize: 15 }}>
@@ -56,7 +56,7 @@ export default function PlatosPage() {
             style={{
               width: "100%", padding: "12px 12px 12px 42px",
               borderRadius: 12, border: "none", fontSize: 14,
-              background: "rgba(255,255,255,0.25)", color: "#fff",
+              background: "rgba(173, 129, 72, 0.25)", color: "#100f0f",
               outline: "none", boxSizing: "border-box",
               backdropFilter: "blur(4px)",
             }}

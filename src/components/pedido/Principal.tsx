@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { initialOrders, servedOrdersData } from "../../types/data";
-import type{ Order, ServedOrder,OrderItem } from "../../types/types";
+import type { Order, ServedOrder, OrderItem } from "../../types/types";
 import Header from "../../components/pedido/Header";
 import Column from "../../components/pedido/Column";
 import ServedToday from "../../components/pedido/ServedToday";
@@ -11,7 +11,6 @@ const nextStatus: Record<string, string> = {
   preparing: "ready",
   ready: "served",
 };
-
 
 export default function Principal() {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
@@ -37,23 +36,25 @@ export default function Principal() {
     });
   };
 
-// Agrega esta función junto a handleAction
-const handleItemStatusChange = (
-  orderId: number,
-  itemIndex: number,
-  newStatus: OrderItem["status"]
-) => {
-  setOrders((prev) =>
-    prev.map((o) => {
-      if (o.id !== orderId) return o;
-      const updatedItems = o.items.map((item, i) =>
-        i === itemIndex ? { ...item, status: newStatus } : item
-      );
-      return { ...o, items: updatedItems };
-    })
-  );
-};
-  const handleAddOrder = (newOrder: { table: string; pax: string; waiter: string; notes: string,items: OrderItem[] }) => {
+  const handleItemStatusChange = (
+    orderId: number,
+    itemIndex: number,
+    newStatus: OrderItem["status"]
+  ) => {
+    setOrders((prev) =>
+      prev.map((o) => {
+        if (o.id !== orderId) return o;
+        const updatedItems = o.items.map((item, i) =>
+          i === itemIndex ? { ...item, status: newStatus } : item
+        );
+        return { ...o, items: updatedItems };
+      })
+    );
+  };
+
+  const handleAddOrder = (newOrder: {
+    table: string; pax: string; waiter: string; notes: string; items: OrderItem[];
+  }) => {
     const order: Order = {
       id: Date.now(),
       table: parseInt(newOrder.table),
@@ -72,10 +73,16 @@ const handleItemStatusChange = (
   const columns: Array<"pending" | "preparing" | "ready"> = ["pending", "preparing", "ready"];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f1f5f9", fontFamily: "'Nunito', 'Segoe UI', sans-serif" }}>
+    <div style={{
+      minHeight: "100vh", background: "#f1f5f9",
+      fontFamily: "'Nunito', 'Segoe UI', sans-serif",
+    }}>
       <Header activeCount={orders.length} onNewOrder={() => setShowModal(true)} />
-      <div style={{ padding: "24px 28px" }}>
-        <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
+
+      <div style={{ padding: "24px 20px" }}>
+
+        {/* ── Columnas responsive ── */}
+        <div className="columns-grid">
           {columns.map((status) => (
             <Column
               key={status}
@@ -83,15 +90,43 @@ const handleItemStatusChange = (
               orders={orders.filter((o) => o.status === status)}
               onAction={handleAction}
               onItemStatusChange={handleItemStatusChange}
-              
             />
           ))}
         </div>
+
         <ServedToday served={served} />
       </div>
+
       {showModal && (
-        <NewOrderModal onClose={() => setShowModal(false)} onSubmit={handleAddOrder} />
+        <NewOrderModal
+          onClose={() => setShowModal(false)}
+          onSubmit={handleAddOrder}
+        />
       )}
+
+      <style>{`
+        /* Desktop: 3 columnas lado a lado */
+        .columns-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          align-items: flex-start;
+        }
+
+        /* Tablet: 2 columnas */
+        @media (max-width: 1024px) {
+          .columns-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
+        /* Mobile: 1 columna con tabs para navegar */
+        @media (max-width: 640px) {
+          .columns-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   );
 }
