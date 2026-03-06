@@ -8,38 +8,52 @@ interface Props {
 
 const navItems = [
   { to: "/", label: "Inicio", icon: "🏠", end: true },
-  { to: "/platos", label: "Menu", icon: "🍽️", end: false },
+  { to: "/platos", label: "Platos", icon: "🍽️", end: false },
   { to: "/nosotros", label: "Nosotros", icon: "👥", end: false },
-  { to: "/pedido", label: " Seguimiento Pedido", icon: "⚙️", end: false },
-  
+  { to: "/pedido", label: "Seguimiento Pedido", icon: "⚙️", end: false },
+
 ];
 
 export default function Sidebar({ collapsed, onToggle }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const openMobile = () => {
+    setMobileOpen(true);
+    document.body.classList.add("sidebar-open");
+  };
+
+  const closeMobile = () => {
+    setMobileOpen(false);
+    document.body.classList.remove("sidebar-open");
+  };
+
   return (
     <>
-      {/* ── Botón hamburguesa mobile ── */}
       <button
-        onClick={() => setMobileOpen(true)}
+        onClick={openMobile}
         className="mobile-menu-btn"
         style={{
-          position: "fixed", top: 14, left: 14, zIndex: 300,
+          position: "fixed", top: 14, left: 14,
+          zIndex: mobileOpen ? 0 : 300,
+          opacity: mobileOpen ? 0 : 1,
+          pointerEvents: mobileOpen ? "none" : "auto",
           background: "#1e1e2e", border: "1px solid #2e2e42",
           borderRadius: 10, width: 42, height: 42,
           fontSize: 18, cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
           color: "#f59e0b", boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          transition: "opacity 0.2s ease",
         }}
       >☰</button>
 
       {/* ── Overlay mobile ── */}
       {mobileOpen && (
         <div
-          onClick={() => setMobileOpen(false)}
+          onClick={closeMobile}
           style={{
             position: "fixed", inset: 0,
-            background: "rgba(0,0,0,0.6)", zIndex: 250,
+            background: "rgba(0,0,0,0.6)",
+            zIndex: 250, width: "100vw", height: "100vh",
           }}
         />
       )}
@@ -59,7 +73,6 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
         }}
         className={`sidebar ${mobileOpen ? "mobile-open" : ""} ${collapsed ? "collapsed" : ""}`}
       >
-
         {/* ── Logo ── */}
         <div style={{
           display: "flex", alignItems: "center",
@@ -71,7 +84,7 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
           {!collapsed && (
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{
-                background: "#d8a44b", borderRadius: 10,
+                background: "#d6ab61", borderRadius: 10,
                 width: 34, height: 34, display: "flex",
                 alignItems: "center", justifyContent: "center",
                 fontSize: 18, flexShrink: 0,
@@ -87,12 +100,12 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
 
           {/* Botón colapsar — solo desktop */}
           <button
-            onClick={() => { onToggle(); setMobileOpen(false); }}
+            onClick={() => { onToggle(); closeMobile(); }}
             className="collapse-btn"
             style={{
               background: "#2a2a3e", border: "1px solid #3a3a52",
               borderRadius: 8, width: 30, height: 30,
-              cursor: "pointer", fontSize: 12, color: "#9ca3af",
+              cursor: "pointer", fontSize: 30, color: "#9ca3af",
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0, transition: "all 0.15s",
             }}
@@ -102,11 +115,11 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
           </button>
         </div>
 
-        {/* ── Etiqueta sección ── */}
+        {/* Etiqueta sección */}
         {!collapsed && (
           <div style={{
             padding: "18px 16px 8px",
-            fontSize: 10, fontWeight: 800,
+            fontSize: 12, fontWeight: 800,
             color: "#4b5563", letterSpacing: 1.5,
             textTransform: "uppercase",
           }}>
@@ -124,14 +137,14 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
               key={item.to}
               to={item.to}
               end={item.end}
-              onClick={() => setMobileOpen(false)}
+              onClick={closeMobile}
               style={({ isActive }) => ({
                 display: "flex", alignItems: "center",
                 gap: collapsed ? 0 : 12,
                 justifyContent: collapsed ? "center" : "flex-start",
                 padding: collapsed ? "12px 0" : "10px 12px",
                 borderRadius: 10, textDecoration: "none",
-                fontWeight: 700, fontSize: 13,
+                fontWeight: 700, fontSize: 14,
                 color: isActive ? "#f59e0b" : "#9ca3af",
                 background: isActive ? "rgba(245,158,11,0.1)" : "transparent",
                 borderLeft: isActive && !collapsed ? "3px solid #f59e0b" : "3px solid transparent",
@@ -167,36 +180,35 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
             </div>
           )}
         </div>
-
       </aside>
 
-<style>{`
-  .mobile-menu-btn {
-    display: none !important;
-  }
-  .collapse-btn {
-    display: flex;
-  }
-
-  @media (max-width: 768px) {
-    /* Sidebar siempre oculto en mobile, colapsado o no */
-    .sidebar,
-    .sidebar.collapsed {
-      transform: translateX(-100%) !important;
-      width: 240px !important;
-    }
-    /* Solo se muestra cuando está abierto */
-    .sidebar.mobile-open {
-      transform: translateX(0) !important;
-    }
-    .mobile-menu-btn {
-      display: flex !important;
-    }
-    .collapse-btn {
-      display: none !important;
-    }
-  }
-`}</style>
+      <style>{`
+        .mobile-menu-btn {
+          display: none !important;
+        }
+        .collapse-btn {
+          display: flex;
+        }
+        @media (max-width: 768px) {
+          .sidebar,
+          .sidebar.collapsed {
+            transform: translateX(-100%) !important;
+            width: 240px !important;
+          }
+          .sidebar.mobile-open {
+            transform: translateX(0) !important;
+          }
+          .mobile-menu-btn {
+            display: flex !important;
+          }
+          .collapse-btn {
+            display: none !important;
+          }
+          body.sidebar-open {
+            overflow: hidden;
+          }
+        }
+      `}</style>
     </>
   );
 }

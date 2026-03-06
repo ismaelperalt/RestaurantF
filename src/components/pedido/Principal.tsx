@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useOrders } from "../../components/context/OrdersContext";
-
 import Header from "../../components/pedido/Header";
 import Column from "../../components/pedido/Column";
 import ServedToday from "../../components/pedido/ServedToday";
