@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type{  MenuItem } from "../../types/data";
+import type { MenuItem } from "../../types/data";
 import { menu } from "../../types/data";
-import type{ OrderItem } from "../../types/types";
+import type { OrderItem } from "../../types/types";
 
 // ─── Tipos internos del formulario ───────────────────────────────────────────
 
@@ -32,10 +32,10 @@ interface Props {
 // ─── Configuración visual por categoría ──────────────────────────────────────
 
 const categoryConfig: Record<string, { label: string; emoji: string }> = {
-  entrada:   { label: "Entradas",   emoji: "🥗" },
+  entrada: { label: "Entradas", emoji: "🥗" },
   principal: { label: "Principales", emoji: "🍽️" },
-  postre:    { label: "Postres",    emoji: "🍮" },
-  bebida:    { label: "Bebidas",    emoji: "🥤" },
+  postre: { label: "Postres", emoji: "🍮" },
+  bebida: { label: "Bebidas", emoji: "🥤" },
 };
 
 const categories = ["entrada", "principal", "postre", "bebida"];
@@ -50,10 +50,10 @@ function Step1({
   onChange: (key: keyof FormData, value: string) => void;
 }) {
   const fields: { label: string; key: keyof FormData; type: string; placeholder: string }[] = [
-    { label: "Número de Mesa",   key: "table",  type: "number", placeholder: "Ej: 5"              },
-    { label: "Comensales",       key: "pax",    type: "number", placeholder: "Ej: 3"              },
-    { label: "Camarero",         key: "waiter", type: "text",   placeholder: "Nombre del camarero" },
-    { label: "Notas generales",  key: "notes",  type: "text",   placeholder: "Alergias generales, ocasión especial..." },
+    { label: "Número de Mesa", key: "table", type: "number", placeholder: "Ej: 5" },
+    { label: "Comensales", key: "pax", type: "number", placeholder: "Ej: 3" },
+    { label: "Camarero", key: "waiter", type: "text", placeholder: "Nombre del camarero" },
+    { label: "Notas generales", key: "notes", type: "text", placeholder: "Alergias generales, ocasión especial..." },
   ];
 
   return (
@@ -104,8 +104,7 @@ function Step2({
   // Filtra los platos del menú según la categoría activa
   const filtered = menu.filter((m) => m.category === activeCategory);
 
-  // Comprueba si un plato ya fue seleccionado
-  const isSelected = (id: number) => selected.some((s) => s.menuItem.id === id);
+  
 
   return (
     <div>
@@ -155,7 +154,13 @@ function Step2({
               {/* Fila principal del plato */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                  {item.emoji.startsWith("http") ? (
+                    <img src={item.emoji} alt={item.name} style={{
+                      width: 48, height: 48, objectFit: "cover", borderRadius: 8,
+                    }} />
+                  ) : (
+                    <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                  )}
                   <div>
                     <div style={{ fontSize: 13, fontWeight: 700, color: "#111" }}>{item.name}</div>
                     <div style={{ fontSize: 11, color: "#9ca3af" }}>{item.price.toFixed(2)} €</div>
@@ -290,8 +295,15 @@ function Step3({ form, selected }: { form: FormData; selected: SelectedItem[] })
             padding: "8px 10px", borderRadius: 8, background: "#f9fafb",
           }}>
             <div>
-              <span style={{ fontSize: 13 }}>
-                {s.menuItem.emoji} {s.qty}x {s.menuItem.name}
+              <span style={{ fontSize: 13, display: "flex", alignItems: "center", gap: 6 }}>
+                {s.menuItem.emoji.startsWith("http") ? (
+                  <img src={s.menuItem.emoji} alt={s.menuItem.name} style={{
+                    width: 32, height: 32, objectFit: "cover", borderRadius: 6,
+                  }} />
+                ) : (
+                  <span style={{ fontSize: 20 }}>{s.menuItem.emoji}</span>
+                )}
+                {s.qty}x {s.menuItem.name}
               </span>
               {s.allergyNote && (
                 <div style={{ fontSize: 11, color: "#b45309", marginTop: 2 }}>

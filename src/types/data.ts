@@ -4,43 +4,40 @@ export const initialOrders: Order[] = [
   {
     id: 1, table: 4, pax: 2, waiter: "Marco L.", time: 5, status: "pending", notes: null, delayed: false,
     items: [
-      { name: "Bruschetta de Tomate", qty: 2, emoji: "🥖", status: "pending" },
-      { name: "Filete de Res", qty: 2, emoji: "🥩", status: "pending" },
-      { name: "Tiramisú Clásico", qty: 2, emoji: "☕", status: "pending" },
-      { name: "Vino Tinto Chianti (copa)", qty: 2, emoji: "🍷", status: "pending" },
+      { name: "Bruschetta de Tomate",    qty: 2, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "pending" },
+      { name: "Filete de Res",           qty: 2, emoji: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=600&q=80",    status: "pending" },
+      { name: "Tiramisú Clásico",        qty: 2, emoji: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80", status: "pending" },
+      { name: "Vino Tinto Chianti",      qty: 2, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "pending" },
     ],
   },
   {
     id: 2, table: 2, pax: 3, waiter: "Sofía M.", time: 22, status: "preparing",
     notes: "Sin gluten en la pasta, por favor.", delayed: false,
     items: [
-      { name: "Risotto de Champiñones", qty: 2, emoji: "🍄", status: "ready" },
-      { name: "Burrata con Tomates", qty: 1, emoji: "🧀", status: "served" },
-      { name: "Vino Tinto Chianti (copa)", qty: 3, emoji: "🍷", status: "served" },
+      { name: "Risotto de Champiñones",  qty: 2, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "ready" },
+      { name: "Burrata con Tomates",     qty: 1, emoji: "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=600&q=80", status: "served" },
+      { name: "Vino Tinto Chianti",      qty: 3, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "served" },
     ],
   },
   {
     id: 3, table: 11, pax: 2, waiter: "Marco L.", time: 15, status: "preparing", notes: null, delayed: false,
     items: [
-      { name: "Bruschetta de Tomate", qty: 1, emoji: "🥖", status: "served" },
-      { name: "Lubina al Horno", qty: 1, emoji: "🐟", status: "preparing" },
-      { name: "Risotto de Champiñones", qty: 1, emoji: "🍄", status: "preparing" },
-      { name: "Agua Mineral", qty: 2, emoji: "💧", status: "served" },
+      { name: "Bruschetta de Tomate",    qty: 1, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "served" },
+      { name: "Lubina al Horno",         qty: 1, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "preparing" },
+      { name: "Risotto de Champiñones",  qty: 1, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "preparing" },
+      { name: "Agua Mineral",            qty: 2, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80",    status: "served" },
     ],
   },
   {
     id: 4, table: 6, pax: 5, waiter: "Elena R.", time: 45, status: "ready", delayed: true,
     notes: "Alergia a los frutos secos. Mesa de cumpleaños.",
     items: [
-      { name: "Pappardelle con Jabalí", qty: 2, emoji: "🍝", status: "ready", price: 42 },
-      { name: "Lubina al Horno", qty: 2, emoji: "🐟", status: "ready", price: 48 },
-      { name: "Pollo a la Cazadora", qty: 1, emoji: "🍗", status: "ready", price: 22 },
-      { name: "Panna Cotta de Frutos Rojos", qty: 3, emoji: "🍮", status: "ready", price: 25.5 },
-      { name: "Agua Mineral", qty: 5, emoji: "💧", status: "served", price: 15 },
+      { name: "Pappardelle con Jabalí",      qty: 2, emoji: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80", status: "ready",  price: 42   },
+      { name: "Lubina al Horno",             qty: 2, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "ready", price: 48   },
+      { name: "Agua Mineral",                qty: 5, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80",    status: "served", price: 15  },
     ],
   },
 ];
-
 export const servedOrdersData: ServedOrder[] = [
   { id: 5, table: 8, waiter: "Sofía M.", status: "served" },
 ];

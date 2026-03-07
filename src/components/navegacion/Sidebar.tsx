@@ -7,10 +7,9 @@ interface Props {
 }
 
 const navItems = [
-  { to: "/", label: "Inicio", icon: "🏠", end: true },
-  { to: "/platos", label: "Platos", icon: "🍽️", end: false },
-  { to: "/nosotros", label: "Nosotros", icon: "👥", end: false },
-  { to: "/pedido", label: "Seguimiento Pedido", icon: "⚙️", end: false },
+  
+  { to: "/", label: "Platos", icon: "🍽️", end: false },
+   { to: "/pedido", label: "Seguimiento Pedido", icon: "⚙️", end: false },
 
 ];
 

@@ -102,8 +102,15 @@ function ConfirmModal({ onClose, onConfirm }: {
                 border: "1px solid #e5e7eb", borderRadius: 10, padding: "10px 12px",
               }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: 13, fontWeight: 700 }}>
-                    {c.menuItem.emoji} {c.menuItem.name}
+                  <span style={{ fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                    {c.menuItem.emoji.startsWith("http") ? (
+                      <img src={c.menuItem.emoji} alt={c.menuItem.name} style={{
+                        width: 28, height: 28, objectFit: "cover", borderRadius: 6,
+                      }} />
+                    ) : (
+                      <span style={{ fontSize: 18 }}>{c.menuItem.emoji}</span>
+                    )}
+                    {c.menuItem.name}
                   </span>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <button onClick={() => setExpandedItem(expandedItem === c.menuItem.id ? null : c.menuItem.id)}
