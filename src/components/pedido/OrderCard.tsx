@@ -59,8 +59,7 @@ export default function OrderCard({ order, onAction, onItemStatusChange,onCardCl
     (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
   }}
 >
-
-   {/* Cabecera */}
+  {/* Cabecera */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontWeight: 800, fontSize: 16, color: "#111" }}>Mesa #{order.table}</span>
@@ -77,7 +76,9 @@ export default function OrderCard({ order, onAction, onItemStatusChange,onCardCl
         </div>
       </div>
 
-      {/* Subtítulo */}
+</div>
+
+         {/* Subtítulo */}
       <div style={{ fontSize: 12, color: "#9ca3af", marginBottom: 10 }}>
         👤 {order.pax} pax &nbsp;·&nbsp; {order.waiter}
       </div>
@@ -147,7 +148,6 @@ export default function OrderCard({ order, onAction, onItemStatusChange,onCardCl
           {actionLabel}
         </button>
       )}
-</div>
 
     
     </div>
