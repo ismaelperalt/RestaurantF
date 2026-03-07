@@ -1,13 +1,13 @@
 import { useState } from "react";
-import  { menu } from "../../types/data";
-import  { useCart } from "../../components/context/CartContext";
+import { menu } from "../../types/data";
+import { useCart } from "../../components/context/CartContext";
 import { useOrders } from "../../components/context/OrdersContext";
 
 const categoryConfig = {
-  entrada:   { label: "Entradas",    emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
+  entrada: { label: "Entradas", emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
   principal: { label: "Principales", emoji: "🍽️", color: "#ef4444", bg: "#fee2e2" },
-  postre:    { label: "Postres",     emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
-  bebida:    { label: "Bebidas",     emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
+  postre: { label: "Postres", emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
+  bebida: { label: "Bebidas", emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
 };
 
 const categories = ["entrada", "principal", "postre", "bebida"] as const;
@@ -19,9 +19,9 @@ function ConfirmModal({ onClose, onConfirm }: {
 }) {
   const { cart, totalPrice, updateQty, removeFromCart, updateAllergyNote } = useCart();
   const [table, setTable] = useState("");
-  const [pax, setPax]     = useState("");
+  const [pax, setPax] = useState("");
   const [waiter, setWaiter] = useState("");
-  const [notes, setNotes]   = useState("");
+  const [notes, setNotes] = useState("");
   const [expandedItem, setExpandedItem] = useState<number | null>(null);
   const isValid = table !== "" && pax !== "" && waiter !== "";
 
@@ -53,8 +53,8 @@ function ConfirmModal({ onClose, onConfirm }: {
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 12 }}>
             {[
-              { label: "Mesa",        value: table,  set: setTable,  type: "number", placeholder: "Ej: 5" },
-              { label: "Comensales",  value: pax,    set: setPax,    type: "number", placeholder: "Ej: 3" },
+              { label: "Mesa", value: table, set: setTable, type: "number", placeholder: "Ej: 5" },
+              { label: "Comensales", value: pax, set: setPax, type: "number", placeholder: "Ej: 3" },
             ].map((f) => (
               <div key={f.label}>
                 <label style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", display: "block", marginBottom: 4 }}>
@@ -222,15 +222,15 @@ export default function PlatosPage() {
       <div style={{
         background: "#fff",
         padding: "40px 32px 32px", color: "#774848",
-       
-        
+
+
       }}>
         <h1 style={{ margin: "0 0 6px", fontSize: 28, fontWeight: 900 }}>🍴 Nuestra Carta</h1>
-       
+
         <div style={{ position: "relative", maxWidth: 400 }}>
-           <p style={{ margin: "0 0 24px", opacity: 0.9, fontSize: 15 }}>
-          Selecciona tus platos y envíalos directo a cocina
-        </p>
+          <p style={{ margin: "0 0 24px", opacity: 0.9, fontSize: 15 }}>
+            Selecciona tus platos y envíalos directo a cocina
+          </p>
           <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}></span>
           <input
             type="text" placeholder="Buscar tu favorito plato..." value={search}
@@ -270,8 +270,8 @@ export default function PlatosPage() {
         {/* Grid platos */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-          gap: 18,
+          gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+          gap: 20,
         }}>
           {filtered.map((plato) => {
             const cfg = categoryConfig[plato.category];
@@ -288,12 +288,18 @@ export default function PlatosPage() {
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 48, position: "relative",
                 }}>
-                  {plato.emoji}
+
+                  <img
+                    src={plato.emoji}
+                    alt={plato.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
                   <span style={{
                     position: "absolute", top: 8, right: 8,
                     background: cfg.color, color: "#fff",
                     fontSize: 10, fontWeight: 800, padding: "2px 8px", borderRadius: 20,
                   }}>{cfg.label}</span>
+
                   {inCart && (
                     <span style={{
                       position: "absolute", top: 8, left: 8,
