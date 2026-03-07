@@ -71,20 +71,35 @@ export interface MenuItem {
 export const menu: MenuItem[] = [
   // Entradas
   { id: 1,  name: "Bruschetta de Tomate",        emoji: "🥖", category: "entrada",   price: 8.50  },
-  { id: 2,  name: "Burrata con Tomates",          emoji: "🧀", category: "entrada",   price: 12.00 },
+  { id: 2,  name: "Burrata con Tomates",         emoji: "🧀", category: "entrada",   price: 12.00 },
+  { id: 3,  name: "Carpaccio de Res",            emoji: "🥩", category: "entrada",   price: 13.50 },
+  { id: 4,  name: "Ensalada Caprese",            emoji: "🥗", category: "entrada",   price: 9.50  },
+  { id: 5,  name: "Pan de Ajo",                  emoji: "🥖", category: "entrada",   price: 6.00  },
+  { id: 6,  name: "Sopa Minestrone",             emoji: "🍲", category: "entrada",   price: 7.50  },
 
   // Principales
-  { id: 3,  name: "Filete de Res",                emoji: "🥩", category: "principal", price: 28.00 },
-  { id: 4,  name: "Risotto de Champiñones",       emoji: "🍄", category: "principal", price: 18.00 },
-  { id: 5,  name: "Lubina al Horno",              emoji: "🐟", category: "principal", price: 24.00 },
-  { id: 6,  name: "Pappardelle con Jabalí",       emoji: "🍝", category: "principal", price: 21.00 },
-  { id: 7,  name: "Pollo a la Cazadora",          emoji: "🍗", category: "principal", price: 22.00 },
+  { id: 7,  name: "Filete de Res",                emoji: "🥩", category: "principal", price: 28.00 },
+  { id: 8,  name: "Risotto de Champiñones",      emoji: "🍄", category: "principal", price: 18.00 },
+  { id: 9,  name: "Lubina al Horno",             emoji: "🐟", category: "principal", price: 24.00 },
+  { id: 10, name: "Pappardelle con Jabalí",      emoji: "🍝", category: "principal", price: 21.00 },
+  { id: 11, name: "Pollo a la Cazadora",         emoji: "🍗", category: "principal", price: 22.00 },
+  { id: 12, name: "Lasagna Tradicional",         emoji: "🍝", category: "principal", price: 19.00 },
+  { id: 13, name: "Pizza Margarita",             emoji: "🍕", category: "principal", price: 16.00 },
+  { id: 14, name: "Pizza Cuatro Quesos",         emoji: "🍕", category: "principal", price: 18.50 },
+  { id: 15, name: "Pasta Carbonara",             emoji: "🍝", category: "principal", price: 17.50 },
+  { id: 16, name: "Risotto de Mariscos",         emoji: "🍤", category: "principal", price: 23.00 },
 
   // Postres
-  { id: 8,  name: "Tiramisú Clásico",             emoji: "☕", category: "postre",    price: 7.50  },
-  { id: 9,  name: "Panna Cotta de Frutos Rojos",  emoji: "🍮", category: "postre",    price: 8.50  },
+  { id: 17, name: "Tiramisú Clásico",            emoji: "☕", category: "postre",    price: 7.50  },
+  { id: 18, name: "Panna Cotta de Frutos Rojos", emoji: "🍮", category: "postre",    price: 8.50  },
+  { id: 19, name: "Gelato de Vainilla",          emoji: "🍨", category: "postre",    price: 6.50  },
+  { id: 20, name: "Tarta de Chocolate",          emoji: "🍰", category: "postre",    price: 7.00  },
 
   // Bebidas
-  { id: 10, name: "Vino Tinto Chianti (copa)",    emoji: "🍷", category: "bebida",    price: 6.00  },
-  { id: 11, name: "Agua Mineral",                 emoji: "💧", category: "bebida",    price: 3.00  },
+  { id: 21, name: "Vino Tinto Chianti (copa)",   emoji: "🍷", category: "bebida",    price: 6.00  },
+  { id: 22, name: "Vino Blanco (copa)",          emoji: "🥂", category: "bebida",    price: 6.50  },
+  { id: 23, name: "Agua Mineral",                emoji: "💧", category: "bebida",    price: 3.00  },
+  { id: 24, name: "Agua con Gas",                emoji: "💧", category: "bebida",    price: 3.50  },
+  { id: 25, name: "Coca Cola",                   emoji: "🥤", category: "bebida",    price: 3.00  },
+  { id: 26, name: "Cerveza Artesanal",           emoji: "🍺", category: "bebida",    price: 5.50  },
 ];

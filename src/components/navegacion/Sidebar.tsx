@@ -64,7 +64,7 @@ export default function Sidebar({ collapsed, onToggle }: Props) {
           position: "fixed", top: 0, left: 0,
           height: "100vh", zIndex: 260,
           width: collapsed ? 68 : 240,
-          background: "#1e1e2e",
+          background: "linear-gradient(180deg, #1f2235, #151728)",
           display: "flex", flexDirection: "column",
           transition: "width 0.25s ease, transform 0.25s ease",
           boxShadow: "4px 0 24px rgba(0,0,0,0.25)",
