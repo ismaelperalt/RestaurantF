@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type{ Order, OrderItem } from "../../types/types";
-import type{  MenuItem } from "../../types/data";
-import {menu} from "../../types/data";
+import type { Order, OrderItem } from "../../types/types";
+import type { MenuItem } from "../../types/data";
+import { menu } from "../../types/data";
 
 interface Props {
   order: Order;
@@ -11,10 +11,10 @@ interface Props {
 }
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string }> = {
-  pending:   { label: "Pendiente",  bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
+  pending: { label: "Pendiente", bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
   preparing: { label: "Preparando", bg: "#dbeafe", text: "#1e40af", border: "#93c5fd" },
-  ready:     { label: "Listo",      bg: "#d1fae5", text: "#065f46", border: "#6ee7b7" },
-  served:    { label: "Servido",    bg: "#f3f4f6", text: "#6b7280", border: "#d1d5db" },
+  ready: { label: "Listo", bg: "#d1fae5", text: "#065f46", border: "#6ee7b7" },
+  served: { label: "Servido", bg: "#f3f4f6", text: "#6b7280", border: "#d1d5db" },
 };
 
 const statusCycle: Record<string, OrderItem["status"]> = {
@@ -22,10 +22,10 @@ const statusCycle: Record<string, OrderItem["status"]> = {
 };
 
 const categoryConfig = {
-  entrada:   { label: "Entradas",    emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
+  entrada: { label: "Entradas", emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
   principal: { label: "Principales", emoji: "🍽️", color: "#ef4444", bg: "#fee2e2" },
-  postre:    { label: "Postres",     emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
-  bebida:    { label: "Bebidas",     emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
+  postre: { label: "Postres", emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
+  bebida: { label: "Bebidas", emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
 };
 
 const categories = ["entrada", "principal", "postre", "bebida"] as const;
@@ -135,7 +135,7 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
         }}>
           {[
             { key: "detail", label: "📋 Detalle del pedido" },
-            { key: "add",    label: "➕ Agregar platos"     },
+            { key: "add", label: "➕ Agregar platos" },
           ].map((t) => (
             <button
               key={t.key}
@@ -173,8 +173,15 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                     }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <div>
-                          <span style={{ fontSize: 14, fontWeight: 700, color: isServed ? "#9ca3af" : "#111" }}>
-                            {item.emoji} {item.qty}x {item.name}
+                          <span style={{ fontSize: 14, fontWeight: 700, color: isServed ? "#9ca3af" : "#111", display: "flex", alignItems: "center", gap: 6 }}>
+                            {item.emoji.startsWith("http") ? (
+                              <img src={item.emoji} alt={item.name} style={{
+                                width: 32, height: 32, objectFit: "cover", borderRadius: 6,
+                              }} />
+                            ) : (
+                              <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                            )}
+                            {item.qty}x {item.name}
                           </span>
                           {item.allergyNote && (
                             <div style={{ fontSize: 11, color: "#b45309", marginTop: 2 }}>
@@ -253,10 +260,17 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                       display: "flex", justifyContent: "space-between", alignItems: "center",
                     }}>
                       <div>
-                        <span style={{ fontSize: 13, fontWeight: 700 }}>
-                          {item.emoji} {item.name}
+                        <span style={{ fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
+                          {item.emoji.startsWith("http") ? (
+                            <img src={item.emoji} alt={item.name} style={{
+                              width: 32, height: 32, objectFit: "cover", borderRadius: 6,
+                            }} />
+                          ) : (
+                            <span style={{ fontSize: 18 }}>{item.emoji}</span>
+                          )}
+                          {item.name}
                         </span>
-                        <div style={{ fontSize: 11, color: "#9ca3af" }}>{item.price.toFixed(2)}€</div>
+                        <div style={{ fontSize: 11, color: "#9ca3af" }}>{item.price?.toFixed(2)}€</div>
                       </div>
                       {!sel ? (
                         <button onClick={() => handleAddToSelection(item)} style={{

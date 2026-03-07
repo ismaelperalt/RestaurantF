@@ -30,16 +30,11 @@ export default function OrderCard({ order, onAction, onItemStatusChange, onCardC
 
   return (
 
-
-
-
     <div style={{
       background: "#fff", borderRadius: 14, padding: 18,
       boxShadow: "0 1px 4px rgba(0,0,0,0.07)", marginBottom: 14,
       border: order.delayed ? "1.5px solid #ef4444" : "1px solid #e5e7eb",
     }}>
-
-
 
       <div
         onClick={() => onCardClick(order)}
