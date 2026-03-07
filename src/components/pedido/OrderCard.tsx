@@ -19,22 +19,48 @@ interface Props {
   order: Order;
   onAction: (id: number) => void;
   onItemStatusChange: (orderId: number, itemIndex: number, newStatus: OrderItem["status"]) => void;
+  onCardClick: (order: Order) => void; // 
 }
 
-export default function OrderCard({ order, onAction, onItemStatusChange }: Props) {
+export default function OrderCard({ order, onAction, onItemStatusChange,onCardClick }: Props) {
   const actionLabel =
     order.status === "pending"   ? "→ Iniciar preparación" :
     order.status === "preparing" ? "→ Marcar como listo"   :
                                    "→ Marcar como servido";
 
   return (
+
+
+
+    
     <div style={{
       background: "#fff", borderRadius: 14, padding: 18,
       boxShadow: "0 1px 4px rgba(0,0,0,0.07)", marginBottom: 14,
       border: order.delayed ? "1.5px solid #ef4444" : "1px solid #e5e7eb",
     }}>
 
-      {/* Cabecera */}
+
+     
+<div
+  onClick={() => onCardClick(order)}
+  style={{
+    background: "#fff", borderRadius: 14, padding: 18,
+    boxShadow: "0 1px 4px rgba(0,0,0,0.07)", marginBottom: 14,
+    border: order.delayed ? "1.5px solid #ef4444" : "1px solid #e5e7eb",
+    cursor: "pointer",
+    transition: "box-shadow 0.15s, transform 0.15s",
+  }}
+  onMouseEnter={e => {
+    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 16px rgba(0,0,0,0.12)";
+    (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
+  }}
+  onMouseLeave={e => {
+    (e.currentTarget as HTMLDivElement).style.boxShadow = "0 1px 4px rgba(0,0,0,0.07)";
+    (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+  }}
+>
+
+   {/* Cabecera */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ fontWeight: 800, fontSize: 16, color: "#111" }}>Mesa #{order.table}</span>
@@ -121,6 +147,9 @@ export default function OrderCard({ order, onAction, onItemStatusChange }: Props
           {actionLabel}
         </button>
       )}
+</div>
+
+    
     </div>
   );
 }

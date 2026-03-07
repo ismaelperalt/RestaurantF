@@ -1,6 +1,6 @@
-import  { createContext, useContext, useState } from "react";
-import type {ReactNode} from 'react';
-import type{ Order, ServedOrder, OrderItem } from "../../types/types";
+import { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";
+import type { Order, ServedOrder, OrderItem } from "../../types/types";
 import { initialOrders, servedOrdersData } from "../../types/data";
 
 interface OrdersContextType {
@@ -12,6 +12,7 @@ interface OrdersContextType {
   }) => void;
   advanceOrder: (id: number) => void;
   changeItemStatus: (orderId: number, itemIndex: number, newStatus: OrderItem["status"]) => void;
+  addItemsToOrder: (orderId: number, newItems: OrderItem[]) => void;
 }
 
 const OrdersContext = createContext<OrdersContextType | null>(null);
@@ -41,32 +42,33 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     setOrders((prev) => [...prev, order]);
   };
 
- const advanceOrder = (id: number) => {
-  setOrders((prev) => {
-    const order = prev.find((o) => o.id === id);
-    if (!order) return prev;
+  const advanceOrder = (id: number) => {
+    setOrders((prev) => {
+      const order = prev.find((o) => o.id === id);
+      if (!order) return prev;
 
-    const ns = nextStatus[order.status] as Order["status"]; // ← cast aquí
+      const ns = nextStatus[order.status] as Order["status"];
 
-    if (ns === "served") {
-      setServed((s) => {
-        const alreadyExists = s.some((o) => o.id === id);
-        if (alreadyExists) return s;
-        return [...s, {
-          id: order.id,
-          table: order.table,
-          waiter: order.waiter,
-          status: "served" as const, // ← cast aquí también
-        }];
-      });
-      return prev.filter((o) => o.id !== id);
-    }
+      if (ns === "served") {
+        setServed((s) => {
+          const alreadyExists = s.some((o) => o.id === id);
+          if (alreadyExists) return s;
+          return [...s, {
+            id: order.id,
+            table: order.table,
+            waiter: order.waiter,
+            status: "served" as const,
+          }];
+        });
+        return prev.filter((o) => o.id !== id);
+      }
 
-    return prev.map((o) =>
-      o.id === id ? { ...o, status: ns } : o
-    );
-  });
-};
+      return prev.map((o) =>
+        o.id === id ? { ...o, status: ns } : o
+      );
+    });
+  };
+
   const changeItemStatus = (
     orderId: number, itemIndex: number, newStatus: OrderItem["status"]
   ) => {
@@ -81,9 +83,25 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  // ← ahora DENTRO del provider, tiene acceso a setOrders
+  const addItemsToOrder = (orderId: number, newItems: OrderItem[]) => {
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.id === orderId
+          ? { ...o, items: [...o.items, ...newItems] }
+          : o
+      )
+    );
+  };
+
   return (
     <OrdersContext.Provider value={{
-      orders, served, addOrder, advanceOrder, changeItemStatus,
+      orders,
+      served,
+      addOrder,
+      advanceOrder,
+      changeItemStatus,
+      addItemsToOrder, // ← ya incluido
     }}>
       {children}
     </OrdersContext.Provider>

@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { useOrders } from "../../components/context/OrdersContext";
+import type { Order, OrderItem } from "../../types/types";
 import Header from "../../components/pedido/Header";
 import Column from "../../components/pedido/Column";
 import ServedToday from "../../components/pedido/ServedToday";
 import NewOrderModal from "../../components/pedido/NewOrderModel";
+import OrderDetailModal from "../../components/pedido/OrderDetailModal";
 
 export default function Principal() {
-  // ← REEMPLAZA los 3 useState por esto
-  const { orders, served, addOrder, advanceOrder, changeItemStatus } = useOrders();
+  const { orders, served, addOrder, advanceOrder, changeItemStatus, addItemsToOrder } = useOrders();
   const [showModal, setShowModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+
+  const handleAddItems = (orderId: number, newItems: OrderItem[]) => {
+    addItemsToOrder(orderId, newItems);
+    // Refresca el modal con los nuevos ítems
+    setSelectedOrder((prev) =>
+      prev ? { ...prev, items: [...prev.items, ...newItems] } : null
+    );
+  };
 
   const columns: Array<"pending" | "preparing" | "ready"> = ["pending", "preparing", "ready"];
 
@@ -26,18 +36,30 @@ export default function Principal() {
               key={status}
               status={status}
               orders={orders.filter((o) => o.status === status)}
-              onAction={advanceOrder}                  // ← antes: handleAction
-              onItemStatusChange={changeItemStatus}    // ← antes: handleItemStatusChange
+              onAction={advanceOrder}
+              onItemStatusChange={changeItemStatus}
+              onCardClick={(order) => setSelectedOrder(order)}
             />
           ))}
         </div>
         <ServedToday served={served} />
       </div>
 
+      {/* Modal nuevo pedido */}
       {showModal && (
         <NewOrderModal
           onClose={() => setShowModal(false)}
-          onSubmit={(data) => { addOrder(data); setShowModal(false); }} // ← antes: handleAddOrder
+          onSubmit={(data) => { addOrder(data); setShowModal(false); }}
+        />
+      )}
+
+      {/* Modal detalle pedido */}
+      {selectedOrder && (
+        <OrderDetailModal
+          order={selectedOrder}
+          onClose={() => setSelectedOrder(null)}
+          onItemStatusChange={changeItemStatus}
+          onAddItems={handleAddItems}
         />
       )}
 

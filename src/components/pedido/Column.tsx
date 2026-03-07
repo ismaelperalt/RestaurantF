@@ -8,9 +8,10 @@ interface Props {
   orders: Order[];
   onAction: (id: number) => void;
   onItemStatusChange: (orderId: number, itemIndex: number, newStatus: OrderItem["status"]) => void; // ← nueva
+  onCardClick: (order: Order) => void; // ← NUEVA
 }
 
-export default function Column({ status, orders, onAction, onItemStatusChange }: Props) {
+export default function Column({ status, orders, onAction, onItemStatusChange,onCardClick }: Props) {
   const cfg = columnConfig[status];
   return (
     <div style={{ flex: 1, minWidth: 280 }}>
@@ -32,6 +33,7 @@ export default function Column({ status, orders, onAction, onItemStatusChange }:
           order={o}
           onAction={onAction}
           onItemStatusChange={onItemStatusChange} // ← pasa hacia abajo
+          onCardClick={onCardClick} // ← NUEVA
         />
       ))}
     </div>
