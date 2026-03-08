@@ -12,20 +12,23 @@ export default function Principal() {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
- const handleAddItems = (orderId: number, newItems: OrderItem[]) => {
-  addItemsToOrder(orderId, newItems);
-};
+  const handleAddItems = (orderId: number, newItems: OrderItem[]) => {
+    addItemsToOrder(orderId, newItems);
+  };
 
   const columns: Array<"pending" | "preparing" | "ready"> = ["pending", "preparing", "ready"];
 
   return (
     <div style={{
-      minHeight: "100vh", background: "#f1f5f9",
+      minHeight: "100vh",
+      background: "#f1f5f9",
       fontFamily: "'Nunito', 'Segoe UI', sans-serif",
+      overflowX: "hidden", // evita scroll horizontal
+      boxSizing: "border-box",
     }}>
       <Header activeCount={orders.length} onNewOrder={() => setShowModal(true)} />
 
-      <div style={{ padding: "24px 20px" }}>
+      <div style={{ padding: "24px 16px", boxSizing: "border-box" }}>
         <div className="columns-grid">
           {columns.map((status) => (
             <Column
@@ -41,7 +44,6 @@ export default function Principal() {
         <ServedToday served={served} />
       </div>
 
-      {/* Modal nuevo pedido */}
       {showModal && (
         <NewOrderModal
           onClose={() => setShowModal(false)}
@@ -49,7 +51,6 @@ export default function Principal() {
         />
       )}
 
-      {/* Modal detalle pedido */}
       {selectedOrder && (() => {
         const liveOrder = orders.find((o) => o.id === selectedOrder.id);
         if (!liveOrder) return null;
@@ -64,17 +65,29 @@ export default function Principal() {
       })()}
 
       <style>{`
+        *, *::before, *::after { box-sizing: border-box; }
+
         .columns-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
+          gap: 16px;
           align-items: flex-start;
+          width: 100%;
+          /* Desktop: 3 columnas iguales */
+          grid-template-columns: repeat(3, 1fr);
         }
+
+        /* Tablet */
         @media (max-width: 1024px) {
-          .columns-grid { grid-template-columns: repeat(2, 1fr); }
+          .columns-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
         }
+
+        /* Mobile */
         @media (max-width: 640px) {
-          .columns-grid { grid-template-columns: 1fr; }
+          .columns-grid {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </div>

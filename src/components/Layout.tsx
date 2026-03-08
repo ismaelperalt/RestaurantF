@@ -17,19 +17,21 @@ export default function Layout({ children }: LayoutProps) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const marginLeft = isMobile ? 0 : collapsed ? 68 : 240;
+  const marginLeft = isMobile ? 0 : collapsed ? 72 : 248;
 
   return (
-    <OrdersProvider>   {/* ← pedidos disponibles en toda la app */}
-      <CartProvider>   {/* ← carrito disponible en toda la app */}
+    <OrdersProvider>
+      <CartProvider>
         <div style={{ display: "flex", minHeight: "100vh", background: "#f8fafc" }}>
           <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
           <main style={{
             marginLeft,
             flex: 1,
             minHeight: "100vh",
-            transition: "margin-left 0.25s ease",
+            transition: "margin-left 0.3s cubic-bezier(0.4,0,0.2,1)",
             width: `calc(100% - ${marginLeft}px)`,
+            // En mobile, deja espacio arriba para que el botón hamburguesa no tape el contenido
+            paddingTop: isMobile ? 70 : 0,
           }}>
             {children}
           </main>
