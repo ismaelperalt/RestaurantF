@@ -193,28 +193,28 @@ export default function PlatosPage() {
     return matchCat && matchSearch;
   });
 
-const handleConfirm = (table: string, pax: string, waiter: string, notes: string) => {
-  const items: OrderItem[] = [];
-  cart.forEach((c) => {
-    for (let i = 0; i < c.qty; i++) {
-      items.push({
-        name: c.menuItem.name,
-        qty: 1,
-        emoji: c.menuItem.emoji,
-        price: c.menuItem.price,
-        status: "pending" as const,
-        allergyNote: c.allergyNote || undefined,
-        category: c.menuItem.category, // ← agrega esto
-        
-      });
-    }
-  });
-  addOrder({ table, pax, waiter, notes, items });
-  clearCart();
-  setShowModal(false);
-  setShowSuccess(true);
-  setTimeout(() => setShowSuccess(false), 3000);
-};
+  const handleConfirm = (table: string, pax: string, waiter: string, notes: string) => {
+    const items: OrderItem[] = [];
+    cart.forEach((c) => {
+      for (let i = 0; i < c.qty; i++) {
+        items.push({
+          name: c.menuItem.name,
+          qty: 1,
+          emoji: c.menuItem.emoji,
+          price: c.menuItem.price,
+          status: "pending" as const,
+          allergyNote: c.allergyNote || undefined,
+          category: c.menuItem.category, // ← agrega esto
+
+        });
+      }
+    });
+    addOrder({ table, pax, waiter, notes, items });
+    clearCart();
+    setShowModal(false);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
   return (
     <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'Nunito', 'Segoe UI', sans-serif" }}>
 
@@ -231,30 +231,54 @@ const handleConfirm = (table: string, pax: string, waiter: string, notes: string
           ✅ Pedido enviado a cocina — revisa en Gestionar Pedidos
         </div>
       )}
-
       {/* Header */}
       <div style={{
         background: "#fff",
-        padding: "40px 32px 32px", color: "#774848",
-
-
+        padding: "32px 32px 28px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        gap: 24,
+        borderBottom: "1px solid #f3f4f6",
+        flexWrap: "wrap",
       }}>
-        <h1 style={{ margin: "0 0 6px", fontSize: 28, fontWeight: 900 }}>🍴 Nuestra Carta</h1>
-
-        <div style={{ position: "relative", maxWidth: 400 }}>
-          <p style={{ margin: "0 0 24px", opacity: 0.9, fontSize: 15 }}>
+        {/* Izquierda — título */}
+        <div style={{ flex: "1 1 200px" }}>
+          <h1 style={{ margin: "0 0 4px", fontSize: 28, fontWeight: 900, color: "#111" }}>
+            🍴 Nuestra Carta
+          </h1>
+          <p style={{ margin: 0, fontSize: 14, color: "#9ca3af", fontWeight: 500 }}>
             Selecciona tus platos y envíalos directo a cocina
           </p>
-          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}></span>
-          <input
-            type="text" placeholder="Buscar tu favorito plato..." value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              width: "100%", padding: "12px 12px 12px 42px", borderRadius: 12,
-              border: "none", fontSize: 14, background: "rgba(245,158,11,0.1)",
-              color: "#010101", outline: "none", boxSizing: "border-box",
-            }}
-          />
+        </div>
+
+        {/* Derecha — búsqueda */}
+        <div style={{ flex: "1 1 300px", maxWidth: 400 }}>
+          <div style={{ position: "relative" }}>
+            <span style={{
+              position: "absolute", left: 14, top: "50%",
+              transform: "translateY(-50%)", fontSize: 16, pointerEvents: "none",
+            }}></span>
+            <input
+              type="text" placeholder="Buscar tu favorito plato..." value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                width: "100%", padding: "12px 12px 12px 42px", borderRadius: 12,
+                border: "1px solid #e5e7eb", fontSize: 14,
+                background: "#fafafa", color: "#111",
+                outline: "none", boxSizing: "border-box",
+                transition: "border 0.15s, box-shadow 0.15s",
+              }}
+              onFocus={e => {
+                e.target.style.border = "1px solid #f59e0b";
+                e.target.style.boxShadow = "0 0 0 3px rgba(245,158,11,0.1)";
+              }}
+              onBlur={e => {
+                e.target.style.border = "1px solid #e5e7eb";
+                e.target.style.boxShadow = "none";
+              }}
+            />
+          </div>
         </div>
       </div>
 
