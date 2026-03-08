@@ -370,16 +370,24 @@ export default function NewOrderModal({ onClose, onSubmit }: Props) {
 
   // Convierte los SelectedItem al formato OrderItem que espera App/KitchenView
   const handleSubmit = () => {
-    const items: OrderItem[] = selected.map((s) => ({
-      name: s.menuItem.name,
-      qty: s.qty,
-      emoji: s.menuItem.emoji,
-      price: s.menuItem.price * s.qty,
-      status: "pending",
-      allergyNote: s.allergyNote || undefined,
-    }));
-    onSubmit({ ...form, items });
-  };
+  const items: OrderItem[] = [];
+  selected.forEach((s) => {
+    for (let i = 0; i < s.qty; i++) {
+      items.push({
+        name: s.menuItem.name,
+        qty: 1,
+        emoji: s.menuItem.emoji,
+        price: s.menuItem.price,
+        status: "pending" as const,
+        allergyNote: s.allergyNote || undefined,
+         category: s.menuItem.category, // ← ¿lo tienes?
+        
+      });
+    }
+  });
+  onSubmit({ table: form.table, pax: form.pax, waiter: form.waiter, notes: form.notes, items });
+  onClose();
+};
 
   const stepTitles = ["Info de mesa", "Platos", "Resumen"];
 

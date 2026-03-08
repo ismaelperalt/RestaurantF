@@ -53,19 +53,27 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
 
   // ── Confirmar nuevos platos ──
   const handleConfirmAdd = () => {
-    if (selectedItems.length === 0) return;
-    const newItems: OrderItem[] = selectedItems.map((s) => ({
-      name: s.menuItem.name,
-      qty: s.qty,
-      emoji: s.menuItem.emoji,
-      price: s.menuItem.price * s.qty,
-      status: "pending" as const,
-      allergyNote: s.allergyNote || undefined,
-    }));
-    onAddItems(order.id, newItems);
-    setSelectedItems([]);
-    setTab("detail");
-  };
+  if (selectedItems.length === 0) return;
+
+  const newItems: OrderItem[] = [];
+
+  selectedItems.forEach((s) => {
+    for (let i = 0; i < s.qty; i++) {
+      newItems.push({
+        name: s.menuItem.name,
+        qty: 1,
+        emoji: s.menuItem.emoji,
+        price: s.menuItem.price,
+        status: "pending",
+        allergyNote: s.allergyNote || undefined,
+      });
+    }
+  });
+
+  onAddItems(order.id, newItems);
+  setSelectedItems([]);
+  setTab("detail");
+};
 
   const filteredMenu = menu.filter((m) => m.category === activeCategory);
 

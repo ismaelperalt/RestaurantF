@@ -5,6 +5,7 @@ export interface OrderItem {
   status: "pending" | "preparing" | "ready" | "served";
   price?: number;
   allergyNote?: string; // ← comentario por plato, ej: "sin nueces"
+  category?: "entrada" | "principal" | "postre" | "bebida"; // ← agrega
 }
 
 export interface Order {

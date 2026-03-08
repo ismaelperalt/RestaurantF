@@ -12,13 +12,9 @@ export default function Principal() {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
-  const handleAddItems = (orderId: number, newItems: OrderItem[]) => {
-    addItemsToOrder(orderId, newItems);
-    // Refresca el modal con los nuevos ítems
-    setSelectedOrder((prev) =>
-      prev ? { ...prev, items: [...prev.items, ...newItems] } : null
-    );
-  };
+ const handleAddItems = (orderId: number, newItems: OrderItem[]) => {
+  addItemsToOrder(orderId, newItems);
+};
 
   const columns: Array<"pending" | "preparing" | "ready"> = ["pending", "preparing", "ready"];
 
@@ -54,14 +50,18 @@ export default function Principal() {
       )}
 
       {/* Modal detalle pedido */}
-      {selectedOrder && (
-        <OrderDetailModal
-          order={selectedOrder}
-          onClose={() => setSelectedOrder(null)}
-          onItemStatusChange={changeItemStatus}
-          onAddItems={handleAddItems}
-        />
-      )}
+      {selectedOrder && (() => {
+        const liveOrder = orders.find((o) => o.id === selectedOrder.id);
+        if (!liveOrder) return null;
+        return (
+          <OrderDetailModal
+            order={liveOrder}
+            onClose={() => setSelectedOrder(null)}
+            onItemStatusChange={changeItemStatus}
+            onAddItems={handleAddItems}
+          />
+        );
+      })()}
 
       <style>{`
         .columns-grid {

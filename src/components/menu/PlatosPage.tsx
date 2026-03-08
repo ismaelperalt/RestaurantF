@@ -2,6 +2,7 @@ import { useState } from "react";
 import { menu } from "../../types/data";
 import { useCart } from "../../components/context/CartContext";
 import { useOrders } from "../../components/context/OrdersContext";
+import type { OrderItem } from "../../types/types";
 
 const categoryConfig = {
   entrada: { label: "Entradas", emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
@@ -192,22 +193,28 @@ export default function PlatosPage() {
     return matchCat && matchSearch;
   });
 
-  const handleConfirm = (table: string, pax: string, waiter: string, notes: string) => {
-    const items = cart.map((c) => ({
-      name: c.menuItem.name,
-      qty: c.qty,
-      emoji: c.menuItem.emoji,
-      price: c.menuItem.price * c.qty,
-      status: "pending" as const,
-      allergyNote: c.allergyNote || undefined,
-    }));
-    addOrder({ table, pax, waiter, notes, items });
-    clearCart();
-    setShowModal(false);
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
-  };
-
+const handleConfirm = (table: string, pax: string, waiter: string, notes: string) => {
+  const items: OrderItem[] = [];
+  cart.forEach((c) => {
+    for (let i = 0; i < c.qty; i++) {
+      items.push({
+        name: c.menuItem.name,
+        qty: 1,
+        emoji: c.menuItem.emoji,
+        price: c.menuItem.price,
+        status: "pending" as const,
+        allergyNote: c.allergyNote || undefined,
+        category: c.menuItem.category, // ← agrega esto
+        
+      });
+    }
+  });
+  addOrder({ table, pax, waiter, notes, items });
+  clearCart();
+  setShowModal(false);
+  setShowSuccess(true);
+  setTimeout(() => setShowSuccess(false), 3000);
+};
   return (
     <div style={{ minHeight: "100vh", background: "#f8fafc", fontFamily: "'Nunito', 'Segoe UI', sans-serif" }}>
 
