@@ -11,10 +11,10 @@ interface Props {
 }
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string }> = {
-  pending: { label: "Pendiente", bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
+  pending:   { label: "Pendiente",  bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
   preparing: { label: "Preparando", bg: "#dbeafe", text: "#1e40af", border: "#93c5fd" },
-  ready: { label: "Listo", bg: "#d1fae5", text: "#065f46", border: "#6ee7b7" },
-  served: { label: "Servido", bg: "#f3f4f6", text: "#6b7280", border: "#d1d5db" },
+  ready:     { label: "Listo",      bg: "#d1fae5", text: "#065f46", border: "#6ee7b7" },
+  served:    { label: "Servido",    bg: "#f3f4f6", text: "#6b7280", border: "#d1d5db" },
 };
 
 const statusCycle: Record<string, OrderItem["status"]> = {
@@ -22,13 +22,13 @@ const statusCycle: Record<string, OrderItem["status"]> = {
 };
 
 const categoryConfig = {
-  entrada: { label: "Entradas", emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
+  entrada:   { label: "Entradas",    emoji: "🥗", color: "#f59e0b", bg: "#fef3c7" },
   principal: { label: "Principales", emoji: "🍽️", color: "#ef4444", bg: "#fee2e2" },
-  postre: { label: "Postres", emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
-  bebida: { label: "Bebidas", emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
+  postre:    { label: "Postres",     emoji: "🍮", color: "#8b5cf6", bg: "#ede9fe" },
+  bebida:    { label: "Bebidas",     emoji: "🥤", color: "#3b82f6", bg: "#dbeafe" },
 };
 
-const categories = ["entrada", "principal", "postre", "bebida"] as const;
+const categoryOrder = ["entrada", "principal", "postre", "bebida"] as const;
 
 export default function OrderDetailModal({ order, onClose, onItemStatusChange, onAddItems }: Props) {
   const [tab, setTab] = useState<"detail" | "add">("detail");
@@ -37,7 +37,6 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
 
   const total = order.items.reduce((acc, item) => acc + (item.price || 0), 0);
 
-  // ── Agregar plato a la selección ──
   const handleAddToSelection = (item: MenuItem) => {
     setSelectedItems((prev) => {
       const exists = prev.find((s) => s.menuItem.id === item.id);
@@ -51,31 +50,29 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
     else setSelectedItems((prev) => prev.map((s) => s.menuItem.id === id ? { ...s, qty } : s));
   };
 
-  // ── Confirmar nuevos platos ──
   const handleConfirmAdd = () => {
-  if (selectedItems.length === 0) return;
-
-  const newItems: OrderItem[] = [];
-
-  selectedItems.forEach((s) => {
-    for (let i = 0; i < s.qty; i++) {
-      newItems.push({
-        name: s.menuItem.name,
-        qty: 1,
-        emoji: s.menuItem.emoji,
-        price: s.menuItem.price,
-        status: "pending",
-        allergyNote: s.allergyNote || undefined,
-      });
-    }
-  });
-
-  onAddItems(order.id, newItems);
-  setSelectedItems([]);
-  setTab("detail");
-};
+    if (selectedItems.length === 0) return;
+    const newItems: OrderItem[] = [];
+    selectedItems.forEach((s) => {
+      for (let i = 0; i < s.qty; i++) {
+        newItems.push({
+          name: s.menuItem.name,
+          qty: 1,
+          emoji: s.menuItem.emoji,
+          price: s.menuItem.price,
+          status: "pending",
+          allergyNote: s.allergyNote || undefined,
+          category: s.menuItem.category, // ← fix
+        });
+      }
+    });
+    onAddItems(order.id, newItems);
+    setSelectedItems([]);
+    setTab("detail");
+  };
 
   const filteredMenu = menu.filter((m) => m.category === activeCategory);
+  const hasCategories = order.items.some((i) => i.category);
 
   return (
     <div style={{
@@ -88,7 +85,7 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
         boxShadow: "0 12px 50px rgba(0,0,0,0.2)", overflow: "hidden",
       }}>
 
-        {/* ── Cabecera ── */}
+        {/* Cabecera */}
         <div style={{
           background: order.delayed
             ? "linear-gradient(135deg, #ef4444, #dc2626)"
@@ -98,23 +95,17 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
-                <h2 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>
-                  Mesa #{order.table}
-                </h2>
+                <h2 style={{ margin: 0, fontSize: 22, fontWeight: 900 }}>Mesa #{order.table}</h2>
                 {order.delayed && (
-                  <span style={{
-                    background: "#fff", color: "#ef4444",
-                    fontSize: 10, fontWeight: 800, padding: "2px 8px", borderRadius: 6,
-                  }}>DEMORADO</span>
+                  <span style={{ background: "#fff", color: "#ef4444", fontSize: 10, fontWeight: 800, padding: "2px 8px", borderRadius: 6 }}>
+                    DEMORADO
+                  </span>
                 )}
               </div>
-              {/* Info rápida */}
               <div style={{ display: "flex", gap: 20, fontSize: 13, opacity: 0.85 }}>
                 <span>👤 {order.pax} pax</span>
                 <span>🧑‍🍳 {order.waiter}</span>
-                <span style={{ color: order.delayed ? "#fca5a5" : "#f59e0b", fontWeight: 700 }}>
-                  ⏱ {order.time}m
-                </span>
+                <span style={{ color: order.delayed ? "#fca5a5" : "#f59e0b", fontWeight: 700 }}>⏱ {order.time}m</span>
               </div>
             </div>
             <button onClick={onClose} style={{
@@ -123,8 +114,6 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>✕</button>
           </div>
-
-          {/* Nota */}
           {order.notes && (
             <div style={{
               marginTop: 12, background: "rgba(255,255,255,0.1)",
@@ -136,32 +125,25 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
           )}
         </div>
 
-        {/* ── Tabs ── */}
-        <div style={{
-          display: "flex", borderBottom: "1px solid #e5e7eb",
-          background: "#f9fafb",
-        }}>
+        {/* Tabs */}
+        <div style={{ display: "flex", borderBottom: "1px solid #e5e7eb", background: "#f9fafb" }}>
           {[
             { key: "detail", label: "📋 Detalle del pedido" },
-            { key: "add", label: "➕ Agregar platos" },
+            { key: "add",    label: "➕ Agregar platos" },
           ].map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setTab(t.key as "detail" | "add")}
-              style={{
-                flex: 1, padding: "12px 0", border: "none", cursor: "pointer",
-                fontWeight: 700, fontSize: 13, background: "transparent",
-                color: tab === t.key ? "#f59e0b" : "#6b7280",
-                borderBottom: tab === t.key ? "2px solid #f59e0b" : "2px solid transparent",
-                transition: "all 0.15s",
-              }}
-            >
+            <button key={t.key} onClick={() => setTab(t.key as "detail" | "add")} style={{
+              flex: 1, padding: "12px 0", border: "none", cursor: "pointer",
+              fontWeight: 700, fontSize: 13, background: "transparent",
+              color: tab === t.key ? "#f59e0b" : "#6b7280",
+              borderBottom: tab === t.key ? "2px solid #f59e0b" : "2px solid transparent",
+              transition: "all 0.15s",
+            }}>
               {t.label}
             </button>
           ))}
         </div>
 
-        {/* ── Contenido ── */}
+        {/* Contenido */}
         <div style={{ overflowY: "auto", flex: 1, padding: "20px 24px" }}>
 
           {/* TAB: Detalle */}
@@ -170,57 +152,113 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
               <p style={{ fontSize: 11, fontWeight: 800, color: "#9ca3af", marginBottom: 12, marginTop: 0, letterSpacing: 1 }}>
                 PLATOS ({order.items.length})
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {order.items.map((item, i) => {
-                  const cfg = statusConfig[item.status];
-                  const isServed = item.status === "served";
-                  return (
-                    <div key={i} style={{
-                      border: "1px solid #e5e7eb", borderRadius: 12,
-                      padding: "12px 14px", background: "#fafafa",
-                    }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <div>
-                          <span style={{ fontSize: 14, fontWeight: 700, color: isServed ? "#9ca3af" : "#111", display: "flex", alignItems: "center", gap: 6 }}>
-                            {item.emoji.startsWith("http") ? (
-                              <img src={item.emoji} alt={item.name} style={{
-                                width: 32, height: 32, objectFit: "cover", borderRadius: 6,
-                              }} />
-                            ) : (
-                              <span style={{ fontSize: 20 }}>{item.emoji}</span>
-                            )}
-                            {item.qty}x {item.name}
-                          </span>
-                          {item.allergyNote && (
-                            <div style={{ fontSize: 11, color: "#b45309", marginTop: 2 }}>
-                              ⚠️ {item.allergyNote}
-                            </div>
-                          )}
-                          {item.price && (
-                            <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>
-                              {item.price.toFixed(2)}€
-                            </div>
-                          )}
-                        </div>
 
-                        {/* Badge clickeable */}
-                        <button
-                          onClick={() => !isServed && onItemStatusChange(order.id, i, statusCycle[item.status])}
-                          style={{
-                            fontSize: 11, fontWeight: 700, padding: "4px 12px",
-                            borderRadius: 20, cursor: isServed ? "default" : "pointer",
-                            background: cfg.bg, color: cfg.text,
-                            border: `1px solid ${cfg.border}`,
-                            transition: "all 0.15s", whiteSpace: "nowrap",
-                          }}
-                        >
-                          {cfg.label} {!isServed && "›"}
-                        </button>
-                      </div>
+              {/* CON categorías */}
+              {hasCategories && categoryOrder.map((cat) => {
+                const catItems = order.items.filter((item) => item.category === cat);
+                if (catItems.length === 0) return null;
+                const cfg = categoryConfig[cat];
+                return (
+                  <div key={cat} style={{ marginBottom: 16 }}>
+                    <div style={{
+                      display: "flex", alignItems: "center", gap: 6,
+                      marginBottom: 8, paddingBottom: 4,
+                      borderBottom: `1.5px solid ${cfg.color}40`,
+                    }}>
+                      <span>{cfg.emoji}</span>
+                      <span style={{ fontSize: 11, fontWeight: 800, color: cfg.color, letterSpacing: 0.5 }}>
+                        {cfg.label.toUpperCase()}
+                      </span>
                     </div>
-                  );
-                })}
-              </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {catItems.map((item) => {
+                        const realIndex = order.items.findIndex((o) => o === item);
+                        const icfg = statusConfig[item.status];
+                        const isServed = item.status === "served";
+                        return (
+                          <div key={realIndex} style={{
+                            border: "1px solid #e5e7eb", borderRadius: 12,
+                            padding: "12px 14px", background: "#fafafa",
+                          }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                              <div>
+                                <span style={{ fontSize: 14, fontWeight: 700, color: isServed ? "#9ca3af" : "#111", display: "flex", alignItems: "center", gap: 6 }}>
+                                  {item.emoji.startsWith("http") ? (
+                                    <img src={item.emoji} alt={item.name} style={{ width: 32, height: 32, objectFit: "cover", borderRadius: 6 }} />
+                                  ) : (
+                                    <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                                  )}
+                                  {item.qty}x {item.name}
+                                </span>
+                                {item.allergyNote && (
+                                  <div style={{ fontSize: 11, color: "#b45309", marginTop: 2 }}>⚠️ {item.allergyNote}</div>
+                                )}
+                                {item.price && (
+                                  <div style={{ fontSize: 11, color: "#9ca3af", marginTop: 2 }}>{item.price.toFixed(2)}€</div>
+                                )}
+                              </div>
+                              <button
+                                onClick={() => !isServed && onItemStatusChange(order.id, realIndex, statusCycle[item.status])}
+                                style={{
+                                  fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 20,
+                                  cursor: isServed ? "default" : "pointer",
+                                  background: icfg.bg, color: icfg.text, border: `1px solid ${icfg.border}`,
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                {icfg.label} {!isServed && "›"}
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* SIN categorías */}
+              {!hasCategories && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  {order.items.map((item, i) => {
+                    const cfg = statusConfig[item.status];
+                    const isServed = item.status === "served";
+                    return (
+                      <div key={i} style={{
+                        border: "1px solid #e5e7eb", borderRadius: 12,
+                        padding: "12px 14px", background: "#fafafa",
+                      }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <div>
+                            <span style={{ fontSize: 14, fontWeight: 700, color: isServed ? "#9ca3af" : "#111", display: "flex", alignItems: "center", gap: 6 }}>
+                              {item.emoji.startsWith("http") ? (
+                                <img src={item.emoji} alt={item.name} style={{ width: 32, height: 32, objectFit: "cover", borderRadius: 6 }} />
+                              ) : (
+                                <span style={{ fontSize: 20 }}>{item.emoji}</span>
+                              )}
+                              {item.qty}x {item.name}
+                            </span>
+                            {item.allergyNote && (
+                              <div style={{ fontSize: 11, color: "#b45309", marginTop: 2 }}>⚠️ {item.allergyNote}</div>
+                            )}
+                          </div>
+                          <button
+                            onClick={() => !isServed && onItemStatusChange(order.id, i, statusCycle[item.status])}
+                            style={{
+                              fontSize: 11, fontWeight: 700, padding: "4px 12px", borderRadius: 20,
+                              cursor: isServed ? "default" : "pointer",
+                              background: cfg.bg, color: cfg.text, border: `1px solid ${cfg.border}`,
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            {cfg.label} {!isServed && "›"}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
 
               {/* Total */}
               {total > 0 && (
@@ -238,9 +276,8 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
           {/* TAB: Agregar platos */}
           {tab === "add" && (
             <div>
-              {/* Filtros categoría */}
               <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-                {categories.map((cat) => {
+                {categoryOrder.map((cat) => {
                   const cfg = categoryConfig[cat];
                   const isActive = activeCategory === cat;
                   return (
@@ -256,7 +293,6 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                 })}
               </div>
 
-              {/* Lista de platos */}
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
                 {filteredMenu.map((item) => {
                   const sel = selectedItems.find((s) => s.menuItem.id === item.id);
@@ -270,9 +306,7 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                       <div>
                         <span style={{ fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}>
                           {item.emoji.startsWith("http") ? (
-                            <img src={item.emoji} alt={item.name} style={{
-                              width: 32, height: 32, objectFit: "cover", borderRadius: 6,
-                            }} />
+                            <img src={item.emoji} alt={item.name} style={{ width: 32, height: 32, objectFit: "cover", borderRadius: 6 }} />
                           ) : (
                             <span style={{ fontSize: 18 }}>{item.emoji}</span>
                           )}
@@ -292,9 +326,7 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                             width: 26, height: 26, borderRadius: 6, border: "1px solid #d1d5db",
                             background: "#fff", cursor: "pointer", fontWeight: 700,
                           }}>−</button>
-                          <span style={{ fontSize: 13, fontWeight: 700, minWidth: 16, textAlign: "center" }}>
-                            {sel.qty}
-                          </span>
+                          <span style={{ fontSize: 13, fontWeight: 700, minWidth: 16, textAlign: "center" }}>{sel.qty}</span>
                           <button onClick={() => handleQtyChange(item.id, sel.qty + 1)} style={{
                             width: 26, height: 26, borderRadius: 6, border: "1px solid #d1d5db",
                             background: "#fff", cursor: "pointer", fontWeight: 700,
@@ -306,7 +338,6 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                 })}
               </div>
 
-              {/* Confirmar */}
               {selectedItems.length > 0 && (
                 <div style={{
                   background: "#f9fafb", borderRadius: 10,
@@ -317,8 +348,7 @@ export default function OrderDetailModal({ order, onClose, onItemStatusChange, o
                   </div>
                   <button onClick={handleConfirmAdd} style={{
                     width: "100%", padding: "10px 0", borderRadius: 8, border: "none",
-                    background: "#f59e0b", cursor: "pointer",
-                    fontWeight: 800, fontSize: 14, color: "#fff",
+                    background: "#f59e0b", cursor: "pointer", fontWeight: 800, fontSize: 14, color: "#fff",
                   }}>
                     ✓ Agregar al pedido
                   </button>

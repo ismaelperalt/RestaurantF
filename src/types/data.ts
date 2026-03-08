@@ -4,37 +4,37 @@ export const initialOrders: Order[] = [
   {
     id: 1, table: 4, pax: 2, waiter: "Marco L.", time: 5, status: "pending", notes: null, delayed: false,
     items: [
-      { name: "Bruschetta de Tomate",    qty: 1, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "pending",  price: 5  },
-      { name: "Filete de Res",           qty: 1, emoji: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=600&q=80",    status: "pending",  price: 45 },
-      { name: "Tiramisú Clásico",        qty: 1, emoji: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80", status: "pending" ,  price: 6},
-      { name: "Vino Tinto Chianti",      qty: 1, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "pending" ,  price: 8 },
+      { name: "Bruschetta de Tomate", qty: 1, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "pending", price: 5, category: "entrada" },
+      { name: "Filete de Res", qty: 1, emoji: "https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=600&q=80", status: "pending", price: 45, category: "principal" },
+      { name: "Tiramisú Clásico", qty: 1, emoji: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80", status: "pending", price: 6, category: "postre" },
+      { name: "Vino Tinto Chianti", qty: 1, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "pending", price: 8, category: "bebida" },
     ],
   },
   {
     id: 2, table: 2, pax: 3, waiter: "Sofía M.", time: 22, status: "preparing",
     notes: "Sin gluten en la pasta, por favor.", delayed: false,
     items: [
-      { name: "Risotto de Champiñones",  qty: 1, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "ready",  price: 56  },
-      { name: "Burrata con Tomates",     qty: 1, emoji: "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=600&q=80", status: "served",  price: 6 },
-      { name: "Vino Tinto Chianti",      qty: 1, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "served",  price: 9 },
+      { name: "Risotto de Champiñones", qty: 1, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "ready", price: 56, category: "principal" },
+      { name: "Burrata con Tomates", qty: 1, emoji: "https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=600&q=80", status: "served", price: 6, category: "entrada" },
+      { name: "Vino Tinto Chianti", qty: 1, emoji: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&q=80", status: "served", price: 9, category: "bebida" },
     ],
   },
   {
     id: 3, table: 11, pax: 2, waiter: "Marco L.", time: 15, status: "preparing", notes: null, delayed: false,
     items: [
-      { name: "Bruschetta de Tomate",    qty: 1, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "served",  price: 43  },
-      { name: "Lubina al Horno",         qty: 1, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "preparing",  price: 52  },
-      { name: "Risotto de Champiñones",  qty: 1, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "preparing" ,  price: 43 },
-      { name: "Agua Mineral",            qty: 1, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80",    status: "served",  price: 23 },
+      { name: "Bruschetta de Tomate", qty: 1, emoji: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=600&q=80", status: "served", price: 43, category: "entrada" },
+      { name: "Lubina al Horno", qty: 1, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "preparing", price: 52, category: "principal" },
+      { name: "Risotto de Champiñones", qty: 1, emoji: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80", status: "preparing", price: 43, category: "principal" },
+      { name: "Agua Mineral", qty: 1, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80", status: "served", price: 23, category: "bebida" },
     ],
   },
   {
     id: 4, table: 6, pax: 5, waiter: "Elena R.", time: 45, status: "ready", delayed: true,
     notes: "Alergia a los frutos secos. Mesa de cumpleaños.",
     items: [
-      { name: "Pappardelle con Jabalí",      qty: 1, emoji: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80", status: "ready",  price: 42   },
-      { name: "Lubina al Horno",             qty: 1, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "ready", price: 48   },
-      { name: "Agua Mineral",                qty: 1, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80",    status: "served", price: 15  },
+      { name: "Pappardelle con Jabalí", qty: 1, emoji: "https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=600&q=80", status: "ready", price: 42, category: "principal" },
+      { name: "Lubina al Horno", qty: 1, emoji: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80", status: "ready", price: 48, category: "principal" },
+      { name: "Agua Mineral", qty: 1, emoji: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=600&q=80", status: "served", price: 15, category: "bebida" },
     ],
   },
 ];
