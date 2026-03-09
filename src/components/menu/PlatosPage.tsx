@@ -140,11 +140,11 @@ function ConfirmModal({ onClose, onConfirm }: {
                     fontSize: 11, fontWeight: 700, color: "#9ca3af",
                     marginBottom: 4, display: "flex", alignItems: "center", gap: 4,
                   }}>
-                    💬 Nota para este plato <span style={{ fontWeight: 400, color: "#d1d5db" }}>(opcional)</span>
+                    💬 Nota <span style={{ fontWeight: 400, color: "#d1d5db" }}>(opcional)</span>
                   </div>
                   <input
                     type="text"
-                    placeholder="Ej: con arroz, término ¾, sin cebolla..."
+                    placeholder="Ej: nota de esta pedido..."
                     value={c.allergyNote}
                     onChange={(e) => updateAllergyNote(c.menuItem.id, e.target.value)}
                     style={{
@@ -263,7 +263,7 @@ export default function PlatosPage() {
         boxSizing: "border-box",
       }}>
         <div style={{ flex: "1 1 160px" }}>
-          <h1 style={{ margin: "0 0 4px", fontSize: 24, fontWeight: 900, color: "#111" }}>
+          <h1 style={{ margin: "0 0 4px", fontSize: 30, fontWeight: 900, color: "#111" }}>
             🍴 Nuestra Carta
           </h1>
           <p style={{ margin: 0, fontSize: 13, color: "#9ca3af", fontWeight: 500 }}>
